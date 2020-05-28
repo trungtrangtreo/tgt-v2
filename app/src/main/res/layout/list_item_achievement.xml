@@ -3,7 +3,7 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_item_achievement"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/list_item_achievement_height"
     android:orientation="vertical">
 
     <ImageView
@@ -11,8 +11,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:padding="@dimen/spacing_small"
-        android:src="@drawable/ic_download_archive_yellow"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="fitXY" />
 

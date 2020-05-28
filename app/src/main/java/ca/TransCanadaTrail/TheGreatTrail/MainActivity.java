@@ -1,6 +1,5 @@
 package ca.TransCanadaTrail.TheGreatTrail;
 
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -32,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -48,6 +48,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -76,6 +77,7 @@ import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
 import ca.TransCanadaTrail.TheGreatTrail.utils.DownloadedAppBadgeBroadcastReceiver;
+
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragTagStack;
 import static ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment.mapfragStack;
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
     private HomeViewPagerAdapter homeTabsAdapter;
 
     private MainAdapter mainAdapter;
+    private boolean mToolBarNavigationListenerIsRegistered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,12 +142,10 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
         mTracker = application.getDefaultTracker();
         manager = getSupportFragmentManager();
 
-
-//        showNavigationDrawer();
+//      showNavigationDrawer();
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
-        ;
-        MainActivity.toggle.syncState();
+        toggle.syncState();
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);     //  Fixed Portrait orientation
 
@@ -196,6 +197,55 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
         navs.add(getString(R.string.menu_setting));
         navs.add(getString(R.string.menu_exit));
         return navs;
+    }
+
+    /**
+     * To be semantically or contextually correct, maybe change the name
+     * and signature of this function to something like:
+     * <p>
+     * private void showBackButton(boolean show)
+     * Just a suggestion.
+     */
+    public void enableViews(boolean enable) {
+
+        // To keep states of ActionBar and ActionBarDrawerToggle synchronized,
+        // when you enable on one, you disable on the other.
+        // And as you may notice, the order for this operation is disable first, then enable - VERY VERY IMPORTANT.
+        if (enable) {
+            //You may not want to open the drawer on swipe from the left in this case
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            // Remove hamburger
+            toggle.setDrawerIndicatorEnabled(false);
+            // Show back button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            // when DrawerToggle is disabled i.e. setDrawerIndicatorEnabled(false), navigation icon
+            // clicks are disabled i.e. the UP button will not work.
+            // We need to add a listener, as in below, so DrawerToggle will forward
+            // click events to this listener.
+            if (!mToolBarNavigationListenerIsRegistered) {
+                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Doesn't have to be onBackPressed
+                        onBackPressed();
+                    }
+                });
+
+                mToolBarNavigationListenerIsRegistered = true;
+            }
+
+        } else {
+            //You must regain the power of swipe for the drawer.
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+            // Remove back button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            // Show hamburger
+            toggle.setDrawerIndicatorEnabled(true);
+            // Remove the/any drawer toggle listener
+            toggle.setToolbarNavigationClickListener(null);
+            mToolBarNavigationListenerIsRegistered = false;
+        }
     }
 
     private void checkExtras(Bundle extras) {
@@ -319,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void showNavigationDrawer() {
@@ -425,10 +475,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
         if (item.getItemId() == android.R.id.home) {
-            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
             onBackPressed();
             return true;
         }
@@ -443,6 +490,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
         ActivityTrackerFragment activityTrackerFragment = getActivityTrackerFragment();
 
         if (currentTab.equals("MapFragment")) {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white);
             int visible = mapFragment.searchLayout.getVisibility();
             if (visible == View.VISIBLE) {
 
@@ -535,6 +583,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
                 drawerLayout.openDrawer(Gravity.START);
             }
         } else if (currentTab.equals("MeasureFragment")) {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white);
             int visible = measureFragment.measureSearchLayout.getVisibility();
             if (visible == View.VISIBLE) {
                 String lastTag;
@@ -566,6 +615,7 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
                 drawerLayout.openDrawer(Gravity.START);
             }
         } else if (currentTab.equals("ActivityTrackerFragment")) {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white);
             getSupportActionBar().show();
             int visible = activityTrackerFragment.trackerSearchLayout.getVisibility();
             if (visible == View.VISIBLE) {
@@ -607,8 +657,6 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
     }
 
     private void setBottomBar() {
-//        bottomBar.setBackgroundResource(R.color.pur_white);
-
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {

@@ -7,21 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
-
-/**
- * Created by Islam Salah on 7/12/17.
- */
 
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.AchievementVH> {
 
@@ -44,10 +37,6 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     public void onBindViewHolder(AchievementVH holder, int position) {
         Achievement achievement = achievements.get(position);
         holder.bind(achievement);
-
-        if (position == 4) {
-            holder.achievementLl.setVisibility(View.INVISIBLE);
-        }
     }
 
     @Override
@@ -56,10 +45,6 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     }
 
     public class AchievementVH extends RecyclerView.ViewHolder {
-
-
-        @BindView(R.id.list_item_achievement)
-        LinearLayout achievementLl;
 
         @BindView(R.id.list_item_achievement_iv)
         ImageView achievementIV;

@@ -4,46 +4,20 @@
         <id>1</id>
         <title>badge_download_app_message</title>
         <description>badge_download_app_description</description>
-        <image-name-inactive>ic_download_archive_yellow</image-name-inactive>
-        <image-name-active>ic_download_archive_yellow</image-name-active>
+        <image-name-inactive>downloadtheapp_option2_copy_inactive</image-name-inactive>
+        <image-name-active>download_the_app_option2</image-name-active>
     </achievement>
 
     <achievement>
         <id>2</id>
         <title>badge_find_trail_message</title>
         <description>badge_find_trail_description</description>
-        <image-name-inactive>ic_navigation</image-name-inactive>
-        <image-name-active>ic_navigation</image-name-active>
+        <image-name-inactive>findthegreattrail_option1_inactive</image-name-inactive>
+        <image-name-active>findthegreattrail_option1_active</image-name-active>
         <achievement-filter>
             <id>1</id>
             <number_of_provinces>1</number_of_provinces>
             <number_of_visits>1</number_of_visits>
-        </achievement-filter>
-    </achievement>
-
-
-    <achievement>
-        <id>4</id>
-        <title>badge_visit_two_province_message</title>
-        <description>badge_visit_two_province_description</description>
-        <image-name-inactive>ic_explorer</image-name-inactive>
-        <image-name-active>ic_explorer</image-name-active>
-        <achievement-filter>
-            <id>3</id>
-            <number_of_provinces>2</number_of_provinces>
-        </achievement-filter>
-    </achievement>
-
-    <achievement>
-        <id>5</id>
-        <title>badge_visit_trail_twice_aweek_message</title>
-        <description>badge_visit_trail_twice_aweek_description</description>
-        <image-name-inactive>ic_adventure</image-name-inactive>
-        <image-name-active>ic_adventure</image-name-active>
-        <achievement-filter>
-            <id>4</id>
-            <number_of_visits>2</number_of_visits>
-            <period>7</period>
         </achievement-filter>
     </achievement>
 
@@ -60,11 +34,36 @@
     </achievement>
 
     <achievement>
+        <id>4</id>
+        <title>badge_visit_two_province_message</title>
+        <description>badge_visit_two_province_description</description>
+        <image-name-inactive>findthegreattrail_option1_copy_inactive</image-name-inactive>
+        <image-name-active>find_the_great_trail_option1</image-name-active>
+        <achievement-filter>
+            <id>3</id>
+            <number_of_provinces>2</number_of_provinces>
+        </achievement-filter>
+    </achievement>
+
+    <achievement>
+        <id>5</id>
+        <title>badge_visit_trail_twice_aweek_message</title>
+        <description>badge_visit_trail_twice_aweek_description</description>
+        <image-name-inactive>visitthetrail2xinaweek_option1_copy_inactive</image-name-inactive>
+        <image-name-active>visitthetrail2xinaweek_option1</image-name-active>
+        <achievement-filter>
+            <id>4</id>
+            <number_of_visits>2</number_of_visits>
+            <period>7</period>
+        </achievement-filter>
+    </achievement>
+
+    <achievement>
         <id>6</id>
         <title>badge_time_badge_message</title>
         <description>badge_time_badge_description</description>
-        <image-name-inactive>ic_experience</image-name-inactive>
-        <image-name-active>ic_experience</image-name-active>
+        <image-name-inactive>timebadges_option2_copy_inactive</image-name-inactive>
+        <image-name-active>time_badges_option2</image-name-active>
         <achievement-filter>
             <id>5</id>
             <!-- For testing "1000"-->
@@ -76,8 +75,8 @@
         <id>7</id>
         <title>badge_track_10km_message</title>
         <description>badge_track_10km_description</description>
-        <image-name-inactive>ic_tracker_achieve</image-name-inactive>
-        <image-name-active>ic_tracker_achieve</image-name-active>
+        <image-name-inactive>track10km_option1_copy_inactive</image-name-inactive>
+        <image-name-active>track10km_option1</image-name-active>
         <achievement-filter>
             <!-- For testing "1500"-->
             <distance>10000</distance>
@@ -88,8 +87,8 @@
         <id>8</id>
         <title>badge_track_50km_message</title>
         <description>badge_track_50km_description</description>
-        <image-name-inactive>ic_champion</image-name-inactive>
-        <image-name-active>ic_champion</image-name-active>
+        <image-name-inactive>track50km_option2_copy_inactive</image-name-inactive>
+        <image-name-active>track50km_option2</image-name-active>
         <achievement-filter>
             <id>6</id>
             <!-- For testing "2000"-->
@@ -101,8 +100,8 @@
         <id>9</id>
         <title>badge_change_elevation_message</title>
         <description>badge_change_elevation_description</description>
-        <image-name-inactive>ic_elevation</image-name-inactive>
-        <image-name-active>ic_elevation</image-name-active>
+        <image-name-inactive>changeinelevation_option1_copy_inactive</image-name-inactive>
+        <image-name-active>change_in_elevation_option1</image-name-active>
         <achievement-filter>
             <id>7</id>
             <elevation>150</elevation>

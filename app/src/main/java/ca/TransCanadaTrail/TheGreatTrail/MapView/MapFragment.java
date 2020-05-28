@@ -541,7 +541,7 @@ public class MapFragment extends HomeTabMapFragment {
 
     }
 
-    private void goToDetailTrailActivity(){
+    private void goToDetailTrailActivity() {
         if (!isNetworkAvailable()) {
             //Toast.makeText(AreaSelectionActivity.this, "Check please your Internet connection", Toast.LENGTH_SHORT).show();
             new AlertDialog.Builder(getActivity())
@@ -570,6 +570,8 @@ public class MapFragment extends HomeTabMapFragment {
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        activity.enableViews(true);
+
     }
 
     private void pushMapFragmentToStack() {

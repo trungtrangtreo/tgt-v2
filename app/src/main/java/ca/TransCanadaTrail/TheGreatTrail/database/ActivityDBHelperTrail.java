@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import ca.TransCanadaTrail.TheGreatTrail.MapView.TrailSegmentLight;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Logger;
 import io.requery.android.database.sqlite.SQLiteDatabase;
@@ -42,7 +41,7 @@ public class ActivityDBHelperTrail extends SQLiteOpenHelper {
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         if (sInstance == null) {
-            sInstance = new ActivityDBHelperTrail(context);
+            sInstance = new ActivityDBHelperTrail(context.getApplicationContext());
         }
         return sInstance;
     }
@@ -62,7 +61,7 @@ public class ActivityDBHelperTrail extends SQLiteOpenHelper {
         } else {
             this.getReadableDatabase();
             try {
-                copyDatabase();
+                copydatabase();
             } catch(IOException e) {
                 throw new Error("Error copying database");
             }
@@ -71,7 +70,7 @@ public class ActivityDBHelperTrail extends SQLiteOpenHelper {
         Log.e("LocationService", "Creation de ActivityDBHelperTrail   ------------------------------------------------------------------------------   ActivityDBHelperTrail ");
     }
 
-    private void copyDatabase() throws IOException {
+    private void copydatabase() throws IOException {
         //Open your local db as the input stream
         InputStream myinput = context.getAssets().open(DB_NAME);
 

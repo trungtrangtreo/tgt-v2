@@ -1,19 +1,16 @@
 package ca.TransCanadaTrail.TheGreatTrail;
 
+import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,100 +18,66 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
-
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import ca.TransCanadaTrail.TheGreatTrail.MapView.TrailSegmentLight;
 import ca.TransCanadaTrail.TheGreatTrail.MapView.TrailSegmentLightLight;
-import ca.TransCanadaTrail.TheGreatTrail.activities.OnboardingActivity;
-import ca.TransCanadaTrail.TheGreatTrail.asyncTasks.AchievementsParserAsyncTask;
 import ca.TransCanadaTrail.TheGreatTrail.database.ActivityDBHelperTrail;
 import ca.TransCanadaTrail.TheGreatTrail.howtouse.HowToUseActivity;
-import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
-import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.JsonParserExecutor;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Logger;
 import ca.TransCanadaTrail.TheGreatTrail.utils.SharedPrefUtils;
 
-public class SplashScreenActivity extends Activity implements AchievementsParserAsyncTask.AchievementsParserAsyncTaskIF {
+public class SplashScreenActivity extends Activity {
 
-    private String download_file_path = "https://api.tctrail.ca";
+    //  private String download_file_path ="https://api.tctrail.ca";
+    private String download_file_path = "https://firebasestorage.googleapis.com/v0/b/tgt-trail.appspot.com/o/trailDb.sqlite?alt=media&token=7616a69d-2400-46e3-af21-deebe104415d";
     private boolean updateAvailable = false;
-    /**
-     * This value has been obtained by taking the average of all distances.
-     * averageDistance = (d1+d2....+dn) / n
-     * where
-     * - di : is the distance between a point and the point after it in the list of points
-     * constituting the segment.
-     * - n : is the number of of all distances across all segments
-     * <p>
-     * e.g
-     * we have only 2 segments each with 3 points (a point with represented by '0') as shown
-     * in figure :
-     * <p>
-     * 0--0----0
-     * 0-0---0
-     * <p>
-     * so averageDistance = (2 + 4 + 1 + 3) / 4
-     * <p>
-     */
 
-    private String workPath = "/data/data/ca.TransCanadaTrail.TheGreatTrail/databases/"; // "/storage/sdcard0/";  // "/data/data/ca.TransCanadaTrail.TheGreatTrail/databases/"; File file = new File(context.getFilesDir(), filename);
-    private AchievementsParserAsyncTask achievementsParserAsyncTask;
+    private String workPath = "/data/data/ca.TransCanadaTrail.TheGreatTrail/databases/";
+    private String dbName = "trailDb.sqlite";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_splash);
 
+//        File folder = new File(workPath);
+//        if (!folder.exists()) {
+//            folder.mkdir();
+//        }
 
-        SharedPreferences preferences = getSharedPreferences("SearchPreferences", Context.MODE_PRIVATE);
-        int isOpened = preferences.getInt("onboarding", 0);
-
-
-        File folder = new File(workPath);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
+        DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
+        doCalculations.execute();
 
 //      getTrailWarning();
 //      checkDownloadAmenitiesDb();
-        ProgressDialog progressDialog = new ProgressDialog(this,R.style.MyTheme);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
-        checkDownloadTrailDb();
+
+//      checkPermissionReadWriteExternal();
 
 
-        achievementsParserAsyncTask = new AchievementsParserAsyncTask(this, this);
-        ArrayList<Achievement> achievements = AchievementsDao.getInstance().findAll(this);
-        if (achievements.size() == 0) {
-            achievementsParserAsyncTask.execute();
-        }
+//        achievementsParserAsyncTask = new AchievementsParserAsyncTask(this, this);
+//        ArrayList<Achievement> achievements = AchievementsDao.getInstance().findAll(this);
+//        if (achievements.size() == 0) {
+//            achievementsParserAsyncTask.execute();
+//        }
     }
 
     private boolean isNetworkAvailable() {
@@ -145,10 +108,8 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
             urlTrailWarning = urlTrailWarning.replace("Message", messageKey);
         }
 
-
         RequestQueue queue = Volley.newRequestQueue(this);  // this = context
         // final String checksum="";
-
 
         final String finalMessageKey = messageKey;
         final String finalLocationKey = locationKey;
@@ -205,15 +166,12 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
 
         };
         queue.add(postRequest);
-
     }
-
 
     private boolean checkUpdate() {
 
         String url = download_file_path;
         RequestQueue queue = Volley.newRequestQueue(this);  // this = context
-
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -255,8 +213,6 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         };
         queue.add(postRequest);
         return updateAvailable;
-
-
     }
 
     public interface VolleyCallback {
@@ -267,7 +223,7 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
 
     private void fileChecksumServer(final String file, final String resource, final String localChecksum, final VolleyCallback callback) {
 
-// si le fichier n existe pas ne pas  continuer
+        // si le fichier n existe pas ne pas  continuer
         String url = download_file_path;
         RequestQueue queue = Volley.newRequestQueue(this);  // this = context
         // final String checksum="";
@@ -313,180 +269,6 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         };
         queue.add(postRequest);
     }
-
-
-    private void checkDownloadAmenitiesDb() {
-
-        // Test if file exist or not
-        File file = new File(workPath, "amenitiesDb.sqlite");
-        if (!file.exists()) {
-
-            if (!isNetworkAvailable()) {
-                // close this activity
-                return;
-            }
-
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            final DownloadTask downloadTask = new DownloadTask(SplashScreenActivity.this);
-            downloadTask.execute(download_file_path, "amenitiesDb.sqlite", "resources.amenitiesDb");
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-            SharedPreferences.Editor editor = preferences.edit();
-            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-            String realToday = sdf.format(new Date());
-            editor.putString("today1", realToday);
-            editor.commit();
-
-        } else {
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-            SharedPreferences.Editor editor = preferences.edit();
-
-            boolean update = false;
-            if (preferences.contains("today1")) {
-                String storedToday = preferences.getString("today1", "");
-                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-                String realToday = sdf.format(new Date());
-
-                if (!realToday.equals(storedToday)) {
-                    update = true;
-                }
-                editor.putString("today1", realToday);
-                editor.commit();
-            } else {
-                editor.putString("today1", "");
-                editor.commit();
-            }
-
-
-            if (isNetworkAvailable() && update) {
-
-                final String amenitiesDbChecksumLocal = mycheck(workPath + "amenitiesDb.sqlite");
-                // checksum="";
-                fileChecksumServer("amenitiesDb.sqlite", "resources.amenitiesDb", amenitiesDbChecksumLocal, new VolleyCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-                        JSONObject jsonResponse;
-                        try {
-                            jsonResponse = new JSONObject(result);
-                            String status = jsonResponse.getString("status");
-                            String amenitiesDbChecksumServer = jsonResponse.getString("checksum");
-
-
-                            if (!amenitiesDbChecksumServer.equals(amenitiesDbChecksumLocal)) {
-
-
-                                // execute this when the downloader must be fired
-                                final DownloadTask downloadTask = new DownloadTask(SplashScreenActivity.this);
-                                downloadTask.execute(download_file_path, "amenitiesDb.sqlite", "resources.amenitiesDb");
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-            }
-        }
-
-
-    }
-
-    private void checkDownloadTrailDb() {
-        // Test if file exist or not
-
-        File file = new File(workPath + "trailDb.sqlite");
-        if (!file.exists() || getSizeFile(workPath + "trailDb.sqlite") < 16000) {
-
-            if (!isNetworkAvailable()) {
-                // close this activity
-                finish();
-            }
-
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            final DownloadTask downloadTask = new DownloadTask(SplashScreenActivity.this);
-            downloadTask.execute(download_file_path, "trailDb.sqlite", "resources.trailDb");
-            // after we do calculation in  downloadTask
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-            SharedPreferences.Editor editor = preferences.edit();
-            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-            String realToday = sdf.format(new Date());
-            editor.putString("today2", realToday);
-            editor.commit();
-
-        } else {
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-            SharedPreferences.Editor editor = preferences.edit();
-
-            boolean update = false;
-            if (preferences.contains("today2")) {
-
-                String storedToday = preferences.getString("today2", "");
-                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-                String realToday = sdf.format(new Date());
-
-                if (!realToday.equals(storedToday)) {
-                    update = true;
-                }
-                editor.putString("today2", realToday);
-                editor.commit();
-            } else {
-                editor.putString("today2", "");
-                editor.commit();
-            }
-
-
-            if (isNetworkAvailable() && update) {
-
-                final String trailDbChecksumLocal = mycheck(workPath + "trailDb.sqlite");
-                fileChecksumServer("trailDb.sqlite", "resources.trailDb", trailDbChecksumLocal, new VolleyCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-                        JSONObject jsonResponse;
-                        try {
-                            jsonResponse = new JSONObject(result);
-                            String status = jsonResponse.getString("status");
-                            String trailDbChecksumServer = jsonResponse.getString("checksum");
-
-
-                            if (!trailDbChecksumServer.equals(trailDbChecksumLocal)) {
-
-                                // execute this when the downloader must be fired
-                                final DownloadTask downloadTask = new DownloadTask(SplashScreenActivity.this);
-                                downloadTask.execute(download_file_path, "trailDb.sqlite", "resources.trailDb");
-
-                                // after we do calculation in  downloadTask
-                            } else {
-                                final DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
-                                doCalculations.execute();
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            } else {
-                final DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
-                doCalculations.execute();
-            }
-        }
-    }
-
     private void retrieveTrailFromDB() {
         if (MainActivity.listPoints != null && !MainActivity.listPoints.isEmpty())
             return;
@@ -508,38 +290,6 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         long time2 = Calendar.getInstance().getTimeInMillis();
 
         Logger.e("time to parse data = " + (time2 - time1) / 1000 + "s");
-    }
-
-    private void retrieveSegments(JsonParserExecutor jsonParserExecutor) {
-        ActivityDBHelperTrail db = ActivityDBHelperTrail.getInstance(this);
-        Cursor cursor = db.getAllSegmentsLight();
-
-        if (cursor == null || !cursor.moveToFirst()) {
-            db.close();
-            Logger.e("retrieveSegments cursor = null");
-            return;
-        }
-        String segmentPointsJsonString;
-        TrailSegmentLight segment;
-        int count = 0;
-        do {
-            count++;
-            segmentPointsJsonString = db.findSegmentPointsJsonString(cursor);
-            if (segmentPointsJsonString == null) continue;
-            segment = TrailSegmentLight.mapFromDatabase(cursor);
-
-            if (segment.trailId.equals("0084")) {
-                count++;
-            }
-
-            MainActivity.listSegments.add(segment);
-            jsonParserExecutor.executeTaskWithId(segment.objectId, segmentPointsJsonString);
-        } while (cursor.moveToNext());
-
-        Logger.e("retrieveSegments seg = " + MainActivity.listSegments.size() + "   count = " + count);
-
-        cursor.close();
-        db.close();
     }
 
     private void retrieveSegmentsV4(JsonParserExecutor jsonParserExecutor, int endObjectId, int startObjectId) {
@@ -668,135 +418,6 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         return false;
     }
 
-    // usually, subclasses of AsyncTask are declared inside the activity class.
-    // that way, you can easily modify the UI thread from here
-    private class DownloadTask extends AsyncTask<String, Integer, String> {
-
-        private Context context;
-        private PowerManager.WakeLock mWakeLock;
-        private String fileToDownload;
-
-        public DownloadTask(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected String doInBackground(String... param) {
-            InputStream input = null;
-            OutputStream output = null;
-            HttpsURLConnection connection = null;
-            Logger.e("DownloadTask 1");
-
-            try {
-
-                File file = new File(workPath + param[1]);
-                fileToDownload = param[1];
-                file.createNewFile();
-
-                URL url = new URL(param[0]);
-                connection = (HttpsURLConnection) url.openConnection();
-
-                connection.setRequestMethod("POST");
-
-                String urlParameters = "apiKey=0ee743d4c3907b30d9bc61670a7e62e11215ce1d&requestType=" + param[2] + "&iHave=b6cba16d4e884d53f565c27357d8dfaf5717ce324d1c754a3496d65838464104" + mycheck(workPath + param[1]) + "&action=get&appVersion=1.0.0&apiVersion=1.0&appPlatform=iOS";
-//                String urlParameters = "apiKey=0ee743d4c3907b30d9bc61670a7e62e11215ce1d&requestType=" + param[2] + "&iHave=b6cba16d4e884d53f565c27357d8dfaf5717ce324d1c754a3496d65838464104" + mycheck(workPath + param[1]) + "&action=get&appVersion=1.7.3&apiVersion=1.0&appPlatform=iOS";
-
-                //  trailDb      amenitiesDb
-                // Send post request
-                connection.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-                wr.writeBytes(urlParameters);
-                wr.flush();
-                wr.close();
-
-
-                // download the file
-                input = connection.getInputStream();
-
-                output = new FileOutputStream(file); // "/sdcard/amenities.sqlite"
-
-                Logger.e("Bravooooooo5  HTTP_OK file path = " + workPath + "/amenities.sqlite");
-
-
-                byte data[] = new byte[4096];
-                long total = 0;
-                int count;
-                while ((count = input.read(data)) != -1) {  //<=
-                    // allow canceling with back button
-                    if (isCancelled()) {
-                        input.close();
-                        return null;
-                    }
-                    total += count;
-                    output.write(data, 0, count);
-                }
-            } catch (Exception e) {
-                return e.toString();
-            } finally {
-                try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // take CPU lock to prevent CPU from going off if the user
-            // presses the power button during download
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
-            mWakeLock.acquire();
-            // mProgressDialog.show();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            super.onProgressUpdate(progress);
-            // if we get here, length is known, now set indeterminate to false
-            /*mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setMax(100);
-            mProgressDialog.setProgress(progress[0]);*/
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            mWakeLock.release();
-            //    mProgressDialog.dismiss();
-
-            if (result != null) {
-                //  Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
-                if (fileToDownload.equals("trailDb.sqlite")) {
-                    if (SharedPrefUtils.isClickGetStarted(getApplicationContext())) {
-                        Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
-                        startActivity(i);
-                    } else {
-                        Intent i = new Intent(SplashScreenActivity.this, HowToUseActivity.class);
-                        startActivity(i);
-                    }
-                    // close this activity
-                    finish();
-                }
-
-            } else if (fileToDownload.equals("trailDb.sqlite")) {
-
-                // execute this when the downloader must be fired
-                final DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
-                doCalculations.execute();
-            }
-        }
-    }
-
     public String mycheck(String filePath) {
         // Test if file exist or not
         File file = new File(filePath);
@@ -827,24 +448,6 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         return sb + "";
     }
 
-
-    private long getSizeFile(String filePath) {
-        long length = 0;
-        try {
-            File file = new File(filePath);
-            length = file.length();
-            length = length / 1024;  // Calculate file size (KB)
-            Log.i("LocationService", " MainActivity : File Path : " + file.getPath() + ", File size : " + length + " KB ---------------------------------------------------------");
-
-
-        } catch (Exception e) {
-            Log.i("MainActivity", e.getMessage() + e);
-        }
-
-        return length;
-    }
-
-
     private class DoCalculations extends AsyncTask<String, Integer, String> {
 
         private Context context;
@@ -858,6 +461,7 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
         protected String doInBackground(String... param) {
             retrieveTrailFromDB();
             mergeTrailSegments();
+
             return null;
         }
 
@@ -889,26 +493,42 @@ public class SplashScreenActivity extends Activity implements AchievementsParser
                 Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(i);
             } else {
-                Intent i = new Intent(SplashScreenActivity.this, HowToUseActivity.class);
+                Intent i = new Intent(getApplicationContext(), HowToUseActivity.class);
                 startActivity(i);
             }
-
             // close this activity
             finish();
         }
-
     }
 
-    @Override
-    public void onParseFinished(List<Achievement> achievements) {
-        AchievementsDao.getInstance().insertAll(achievements, this);
+    private void checkPermissionReadWriteExternal() {
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+//                          checkDownloadTrailDb();
+                            DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
+                            doCalculations.execute();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // permission is denied permenantly, navigate user to app settings
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .onSameThread()
+                .check();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (achievementsParserAsyncTask != null && achievementsParserAsyncTask.getStatus() != AsyncTask.Status.FINISHED)
-            achievementsParserAsyncTask.cancel(true);
-    }
 }

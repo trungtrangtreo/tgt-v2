@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/spacing_small">
+
+    <ImageView
+        android:id="@+id/ivStart"
+        android:layout_width="@dimen/icon_size_huge"
+        android:layout_height="@dimen/icon_size_huge"
+        android:layout_weight="1"
+        android:src="@drawable/ic_start" />
+
+    <ImageView
+        android:id="@+id/ivPause"
+        android:layout_width="@dimen/icon_size_huge"
+        android:layout_height="@dimen/icon_size_huge"
+        android:layout_weight="1"
+        android:src="@drawable/ic_pause"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivResume"
+        android:layout_width="@dimen/icon_size_huge"
+        android:layout_height="@dimen/icon_size_huge"
+        android:layout_weight="1"
+        android:src="@drawable/ic_resume"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivFinish"
+        android:layout_width="@dimen/icon_size_huge"
+        android:layout_height="@dimen/icon_size_huge"
+        android:layout_weight="1"
+        android:src="@drawable/ic_finish"
+        android:visibility="gone" />
+
+</LinearLayout>

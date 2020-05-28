@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_white_1000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/activityTrackerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/llBottom"
+            android:layout_weight="8">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                map:cameraTargetLat="56.1304"
+                map:cameraTargetLng="-106.3468"
+                map:zoom="3" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/location_toggle_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/md_white_1000"
+                android:backgroundTint="@color/md_white_1000"
+                android:clickable="true"
+                android:src="@drawable/ic_my_loc"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@color/gray2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_tiny"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Chronometer
+                        android:id="@+id/chronometer"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.60"
+                        android:gravity="center"
+                        android:text="00:00:00"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/font_small"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.40"
+                        android:gravity="center"
+                        android:text="@string/time"
+                        android:textAlignment="center"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/font_tiny" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/md_white_1000" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_tiny"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/llDistance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtDistance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0 km"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/font_small" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/distance"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/font_tiny" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llElevation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_micro"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtElevation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="0 m"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/font_small" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/elevation"
+                            android:textAlignment="center"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/font_tiny" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivTrackerActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/spacing_micro"
+                        android:src="@drawable/ic_tracker_activity_new" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include
+                layout="@layout/include_button_tracker"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+        <!--    <FrameLayout-->
+        <!--        android:id="@+id/trackerSearchLayout"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="match_parent"-->
+        <!--        android:background="@android:color/white"-->
+        <!--        android:visibility="gone" />-->
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/md_white_1000"
+            android:visibility="gone">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/md_white_1000"
+                android:orientation="vertical">
+
+                <!-- Layout 2-->
+
+
+                <!-- Layout 3-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/fragment_activity_tracker_container_bottom_margin"
+                    android:background="@color/md_white_1000"
+                    android:orientation="vertical">
+
+
+                    <!-- Layout 4  Buttons-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="15dp"
+                        android:layout_weight="0.50"
+                        android:background="@color/md_white_1000">
+
+
+                        <Button
+                            android:id="@+id/startBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:background="@color/blueGreen"
+                            android:shadowRadius="0"
+                            android:text="@string/start"
+                            android:textColor="@color/white" />
+
+                        <Button
+                            android:id="@+id/activityBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@color/blueGreen"
+                            android:shadowRadius="0"
+                            android:text="@string/activity"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+
+                    <!-- Layout 5-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.50"
+                        android:background="@color/md_white_1000"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+
+                        <!-- Layout 6 Distance-->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.25"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.60"
+                                android:gravity="center"
+                                android:text="0 km"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="22dp" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.40"
+                                android:gravity="center"
+                                android:text="@string/distance"
+                                android:textAlignment="center"
+                                android:textColor="@color/textGrey"
+                                android:textSize="11dp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="20sp"
+                            android:background="@color/textGrey" />
+
+                        <!-- Layout 7  Time -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.50"
+                            android:background="@color/md_white_1000"
+                            android:orientation="vertical">
+
+
+                            <Chronometer
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.60"
+                                android:gravity="center"
+                                android:text="00:00:00"
+                                android:textColor="@color/black"
+                                android:textSize="22dp"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.40"
+                                android:gravity="center"
+                                android:text="@string/time"
+                                android:textAlignment="center"
+                                android:textColor="@color/textGrey"
+                                android:textSize="11dp" />
+
+                        </LinearLayout>
+
+                        <!--Divider-->
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="20sp"
+                            android:background="@color/textGrey" />
+
+
+                        <!-- Layout 8 Elevation-->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.25"
+                            android:background="@color/md_white_1000"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.60"
+                                android:gravity="center"
+                                android:text="0 m"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="22dp" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.40"
+                                android:gravity="center"
+                                android:text="@string/elevation"
+                                android:textAlignment="center"
+                                android:textColor="@color/textGrey"
+                                android:textSize="11dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/trackerSearchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone" />
+</FrameLayout>

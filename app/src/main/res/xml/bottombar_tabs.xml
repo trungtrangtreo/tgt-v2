@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        icon="@drawable/ic_map_normal"
+        id="@+id/tab_map" />
+    <tab
+        icon="@drawable/ic_measure_normal"
+        id="@+id/tab_measure"/>
+    <tab
+        icon="@drawable/ic_tracker_normal"
+        id="@+id/tab_tracker" />
+    <tab
+        icon="@drawable/ic_archive_normal"
+        id="@+id/tab_achievements" />
+    <!--<tab
+        id="@+id/tab_more"
+        icon="@drawable/ic_more"
+        title="More" />-->
+</tabs>

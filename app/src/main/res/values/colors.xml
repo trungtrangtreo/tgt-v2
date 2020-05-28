@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#37647D</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#37647D</color>
+    <color name="dialogColor">#34596b</color>
+    <color name="black">#000000</color>
+    <color name="lightGrey">#AAAAAA</color>
+    <color name="blueGreen">#37647D</color>
+    <color name="pur_white">#FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="lightLightGrey">#EDEDED</color>
+    <color name="greenStart">#bfd774</color>
+    <color name="greenMid">#a4c639</color>
+    <color name="greenEnd">#738b28</color>
+    <color name="yellow">#FFFC00</color>
+    <color name="darkYellow">#dded1a</color>
+    <color name="greyBottomBar">#eeeeee</color>
+    <color name="plum">#750509</color>
+    <color name="more">#72a088</color>
+    <color name="textGrey">#65818181</color>
+    <color name="dialogGrey">#b7bec3</color>
+    <color name="home_tabs_active_color">#750509</color>
+    <color name="home_tabs_inactive_color">#929292</color>
+
+    <color name="light_gray">#dbdbdb</color>
+    <color name="semi_gray">#979797</color>
+    <color name="dark_gray">#696969</color>
+    <color name="bg_color">#f7f7f7</color>
+    <color name="black_effective">#2a2a2a</color>
+    <color name="shadow">#d0d8dc</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent_white">#88ffffff</color>
+    <color name="fb">#3b5998</color>
+    <color name="google">#d34836</color>
+    <color name="gray">#bdbdbd</color>
+    <color name="gray1">#c0c0c0</color>
+    <color name="gray2">#666666</color>
+    <color name="gray3">#929292</color>
+    <color name="gray5">#333333</color>
+    <color name="gray_5">#121212</color>
+    <color name="gray_6">#767676</color>
+    <color name="blue_1">#355369</color>
+    <color name="md_yellow_700">#FBC02D</color>
+
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+
+</resources>

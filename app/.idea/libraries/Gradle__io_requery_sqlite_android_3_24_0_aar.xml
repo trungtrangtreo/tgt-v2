@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: io.requery:sqlite-android:3.24.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/639187d9ddfdb78fb914297d4661cb7c/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/639187d9ddfdb78fb914297d4661cb7c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/639187d9ddfdb78fb914297d4661cb7c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.requery/sqlite-android/3.24.0/e42c8ba22f989b325a31ff2e3b112bfb3bfc24c3/sqlite-android-3.24.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

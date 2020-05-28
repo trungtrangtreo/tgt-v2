@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/md_black_1000"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -57,7 +58,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_arrow_measure_up"
+                    app:srcCompat="@drawable/ic_share_yellow"
                     android:clickable="true"
                     android:layout_marginRight="80dp"
                     android:textAllCaps="false"/>
@@ -148,7 +149,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textColor="@color/md_black_1000"
+                    android:textColor="@color/md_white_1000"
                     android:id="@+id/txtDistance2" />
 
 
@@ -161,7 +162,7 @@
                     android:textSize="11dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/textGrey"
+                    android:textColor="@color/md_white_1000"
                     android:textAlignment="center"/>
 
             </LinearLayout>
@@ -172,7 +173,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="20dp"
-                android:background="@color/textGrey" />
+                android:background="@color/md_white_1000" />
 
             <!-- Layout 7  Time -->
             <LinearLayout
@@ -190,7 +191,7 @@
                     android:visibility="visible"
                     android:textSize="19dp"
                     android:gravity="center"
-                    android:textColor="@color/md_black_1000"
+                    android:textColor="@color/md_white_1000"
                     android:text="00:00:00" />
 
                 <TextView
@@ -200,7 +201,7 @@
                     android:layout_marginTop="-5dp"
                     android:text="@string/time"
                     android:textSize="11dp"
-                    android:textColor="@color/textGrey"
+                    android:textColor="@color/md_white_1000"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textAlignment="center"/>
@@ -214,7 +215,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="1dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/textGrey" />
+                android:background="@color/md_white_1000" />
 
             <!-- Layout 8 Elevation-->
             <LinearLayout
@@ -231,7 +232,7 @@
                     android:textSize="19dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/md_black_1000"
+                    android:textColor="@color/md_white_1000"
                     android:textAlignment="center"
                     android:id="@+id/txtElevation2" />
 
@@ -243,7 +244,7 @@
                     android:layout_marginTop="-5dp"
                     android:text="@string/elevation"
                     android:textSize="11dp"
-                    android:textColor="@color/textGrey"
+                    android:textColor="@color/md_white_1000"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textAlignment="center"/>

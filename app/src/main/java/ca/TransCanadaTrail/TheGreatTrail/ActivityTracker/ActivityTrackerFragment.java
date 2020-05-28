@@ -372,9 +372,6 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                     ivPause.setVisibility(View.VISIBLE);
                     ivFinish.setVisibility(View.VISIBLE);
 
-
-                    Log.i(TrackService.TAG, " Ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Actuelle valeur state =" + state);
-
                     if (state.equals("Stop")) {
 
                         editor.putBoolean("WriteOnBD", true); // value to store
@@ -393,8 +390,6 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                         distance = 0;
                         firstAltitude = Double.MIN_VALUE; // the min value
-
-                        Log.i(TrackService.TAG, " Ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Actuelle valeur =" + (SystemClock.elapsedRealtime() + timeWhenStopped));
                     }
                     // In case it is returned from pause state
                     TrackingManager.getInstance().setTracking(true);
@@ -494,7 +489,6 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                 timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
                 chrono.stop();
-                Log.i("Stopppppppp", "service is stopppppppppppppppped");
 
                 colorLine = Color.GRAY;
                 startBtn.setText(R.string.start);

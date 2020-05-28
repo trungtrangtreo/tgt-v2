@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -34,7 +32,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Toast;
-
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -51,7 +48,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -80,7 +76,6 @@ import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
 import ca.TransCanadaTrail.TheGreatTrail.utils.DownloadedAppBadgeBroadcastReceiver;
-
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragTagStack;
 import static ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment.mapfragStack;
@@ -146,9 +141,9 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
 
 
 //        showNavigationDrawer();
-        toggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
-;
+        ;
         MainActivity.toggle.syncState();
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);     //  Fixed Portrait orientation
@@ -323,8 +318,8 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
     public void showToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void showNavigationDrawer() {
@@ -431,8 +426,9 @@ public class MainActivity extends AppCompatActivity implements AchievementsFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
         if (item.getItemId() == android.R.id.home) {
-            drawerLayout.openDrawer(GravityCompat.START);
+            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
             onBackPressed();
             return true;
         }

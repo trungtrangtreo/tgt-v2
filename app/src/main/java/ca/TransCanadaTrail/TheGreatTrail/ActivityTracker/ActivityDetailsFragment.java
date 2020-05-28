@@ -62,6 +62,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -73,6 +74,7 @@ import java.util.List;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.database.ActivityDBHelper;
+import ca.TransCanadaTrail.TheGreatTrail.utils.Logger;
 import ca.TransCanadaTrail.TheGreatTrail.utils.PointState;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -128,7 +130,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity=(MainActivity)context;
+        activity = (MainActivity) context;
     }
 
     public void setActivityId(long activityId) {
@@ -163,20 +165,17 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if(currentTab.equals("MapFragment") && mapfragStack.containsKey("MapSearchFragment")){
+        if (currentTab.equals("MapFragment") && mapfragStack.containsKey("MapSearchFragment")) {
             menu.clear();
-        }
-        else if(currentTab.equals("MeasureFragment") && measurefragStack.containsKey("MeasureSearchFragment")){
+        } else if (currentTab.equals("MeasureFragment") && measurefragStack.containsKey("MeasureSearchFragment")) {
             menu.clear();
-        }
-        else  if(currentTab.equals("ActivityTrackerFragment")){
-                    if(trackerfragStack.containsKey("ActivityLogFragment") ){
-                        menu.clear();
-                        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-                    }
-                    else if(trackerfragStack.containsKey("TrackerSearchFragment") ||  trackerfragStack.containsKey("ActivityTrackerFragment")){
-                        menu.clear();
-                    }
+        } else if (currentTab.equals("ActivityTrackerFragment")) {
+            if (trackerfragStack.containsKey("ActivityLogFragment")) {
+                menu.clear();
+                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            } else if (trackerfragStack.containsKey("TrackerSearchFragment") || trackerfragStack.containsKey("ActivityTrackerFragment")) {
+                menu.clear();
+            }
         }
     }
 
@@ -223,12 +222,11 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
             @Override
             public void onClick(View v) {
 
-              //  activity.onBackPressed();
+                activity.onBackPressed();
                 back();
 
             }
         });
-
 
 
         deleteBtn = (ImageView) view.findViewById(R.id.deleteBtn);
@@ -245,7 +243,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                         getResources().getText(R.string.yes),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                ActivityDBHelper  db = ActivityDBHelper.getInstance(activity);
+                                ActivityDBHelper db = ActivityDBHelper.getInstance(activity);
                                 db.deleteActivity(String.valueOf(activityId));
                                 db.close();
                                 deleteBtn.setEnabled(false);
@@ -300,7 +298,6 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         });
 
 
-
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(activity)
                     .addConnectionCallbacks(this)
@@ -342,9 +339,8 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         });
 
 
-
-        TextView txtDistance =  (TextView) view.findViewById(R.id.txtDistance2);
-        TextView txtElevation =  (TextView) view.findViewById(R.id.txtElevation2);
+        TextView txtDistance = (TextView) view.findViewById(R.id.txtDistance2);
+        TextView txtElevation = (TextView) view.findViewById(R.id.txtElevation2);
         //  txtTime = (TextView) view.findViewById(R.id.txtTime);
         Chronometer chrono = (Chronometer) view.findViewById(R.id.chronometer2);
 
@@ -352,9 +348,9 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         List<String> dataToReceive = db.giveMeActivity(activityId);
         db.close();
 
-        txtDistance.setText(dataToReceive.get(0)+" km");
+        txtDistance.setText(dataToReceive.get(0) + " km");
         chrono.setText(dataToReceive.get(1));
-        txtElevation.setText(dataToReceive.get(2)+" m");
+        txtElevation.setText(dataToReceive.get(2) + " m");
         title = dataToReceive.get(3);
 
         /*((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -363,7 +359,6 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         TextView main_toolbar_title = (TextView) view.findViewById(R.id.main_toolbar_title);
 
         main_toolbar_title.setText(title);
-
 
 
 //        view.setFocusableInTouchMode(true);
@@ -397,9 +392,8 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
 
     }
 
-
-    private void back(){
-        if(trackerfragTagStack.size()>1) {
+    private void back() {
+        if (trackerfragTagStack.size() > 1) {
             int beforLast = trackerfragTagStack.size() - 1;
             String lastTag = trackerfragTagStack.get(beforLast);
             trackerfragTagStack.pop();
@@ -411,9 +405,9 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
 
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ActivityLogFragment activityLogFragment =  (ActivityLogFragment) fragmentManager.findFragmentByTag("ActivityLogFragment");
-        if (activityLogFragment== null) {
-            activityLogFragment=ActivityLogFragment.newInstance();
+        ActivityLogFragment activityLogFragment = (ActivityLogFragment) fragmentManager.findFragmentByTag("ActivityLogFragment");
+        if (activityLogFragment == null) {
+            activityLogFragment = ActivityLogFragment.newInstance();
         }
         fragmentTransaction
                 .replace(R.id.trackerSearchLayout, activityLogFragment, "ActivityLogFragment")
@@ -450,7 +444,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     @Override
     public void onStop() {
         mGoogleApiClient.disconnect();
-      //  myMenu.clear();
+        //  myMenu.clear();
 //        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        activity.getSupportActionBar().setTitle("");
 
@@ -458,7 +452,6 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
 
 
     }
-
 
 
     @Override
@@ -473,14 +466,12 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
 
-
-
     @Override
     public void onPause() {
         if (mMapView != null) {
             mMapView.onPause();
         }
-      //  myMenu.clear();
+        //  myMenu.clear();
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 
@@ -496,7 +487,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                 Log.e("TAG", "Error while attempting MapView.onDestroy(), ignoring exception", e);
             }
         }
-       // myMenu.clear();
+        // myMenu.clear();
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 
@@ -529,8 +520,16 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
 
-
     private void onMyMapReady(GoogleMap googleMap) {
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            getContext(), R.raw.style_json));
+        } catch (Resources.NotFoundException e) {
+            Logger.e("Error", e.getMessage());
+        }
 
         // Get Google Map from Fragment.
         myMap = googleMap;
@@ -550,7 +549,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                 // LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
                 // LatLng latLng = new LatLng(-34, 151);
                 //myMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
-                if(point.latitude == 0 && point.longitude ==0) {
+                if (point.latitude == 0 && point.longitude == 0) {
                     askPermissionsAndShowMyLocation();
                 } else {
                     // myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 14));
@@ -580,7 +579,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         ActivityDBHelper db = new ActivityDBHelper(activity);
         List<PointState> points = db.giveMeAllPoints(activityId);
         db.close();
-        addAllLines(myMap,points);
+        addAllLines(myMap, points);
     }
 
 
@@ -709,8 +708,6 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
 
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
@@ -725,31 +722,36 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
 
-    private void addAllLines(GoogleMap googleMap,List<PointState> points ) {
+    private void addAllLines(GoogleMap googleMap, List<PointState> points) {
 
-        Log.i(TrackService.TAG, "addAllLines    iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii size =  "+points.size());
-        int colorLine = Color.BLACK ;
+        Log.i(TrackService.TAG, "addAllLines    iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii size =  " + points.size());
+        int colorLine = Color.BLACK;
 
         /*LatLng LOWER_MANHATTAN = new LatLng(40.722543, -73.998585);
         LatLng TIMES_SQUARE = new LatLng(40.7577, -73.9857);
         LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);*/
         googleMap.clear();
-        for(int i=0; i<points.size()-1; i++) {
+        for (int i = 0; i < points.size() - 1; i++) {
             //     int j = (i+step < points.size()-1) ? i+step : points.size()-1;
-            switch(points.get(i).getState()){
-                case "Run" : colorLine = Color.BLACK;
+            switch (points.get(i).getState()) {
+                case "Run":
+                    colorLine = Color.BLACK;
                     break;
-                case "Pause" : colorLine = Color.GRAY;
+                case "Pause":
+                    colorLine = Color.GRAY;
                     break;
-                case "Offline" : colorLine = Color.RED;
+                case "Offline":
+                    colorLine = Color.RED;
                     break;
-                case "Stop" : colorLine = Color.WHITE;
+                case "Stop":
+                    colorLine = Color.WHITE;
                     break;
-                default: colorLine = Color.WHITE;
+                default:
+                    colorLine = Color.WHITE;
             }
             googleMap.addPolyline((new PolylineOptions())
                     // .add(TIMES_SQUARE, BROOKLYN_BRIDGE, LOWER_MANHATTAN,TIMES_SQUARE)
-                    .add(points.get(i).getPoint(), points.get(i+1).getPoint())
+                    .add(points.get(i).getPoint(), points.get(i + 1).getPoint())
                     .width(5).color(colorLine)
                     .geodesic(true));
 
@@ -757,7 +759,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
 
         }
 
-        if(points.size()>0){
+        if (points.size() > 0) {
 
            /* Bitmap.Config conf = Bitmap.Config.ARGB_8888;
             Bitmap bmp = Bitmap.createBitmap(200, 50, conf);
@@ -793,15 +795,13 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
             mFirst.setTag(0);
         }
 
-        if(points.size()>1){
+        if (points.size() > 1) {
             Marker mEnd;
             mEnd = googleMap.addMarker(new MarkerOptions()
-                    .position(points.get(points.size()-1).getPoint())
+                    .position(points.get(points.size() - 1).getPoint())
                     .title("End"));
             mEnd.setTag(0);
         }
-
-
 
 
         // move camera to zoom on map
@@ -829,18 +829,18 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         Canvas canvas = new Canvas(bm);
 
         //If the text is bigger than the canvas , reduce the font size
-        if(textRect.width() >= (canvas.getWidth() - 4))     //the padding on either sides is considered as 4, so as to appropriately fit in the text
+        if (textRect.width() >= (canvas.getWidth() - 4))     //the padding on either sides is considered as 4, so as to appropriately fit in the text
             paint.setTextSize(dpToPx(7));        //Scaling needs to be used for different dpi's
 
         //Calculate the positions
         int xPos = (canvas.getWidth() / 2) - 2;     //-2 is for regulating the x position offset
 
         //"- ((paint.descent() + paint.ascent()) / 2)" is the distance from the baseline to the center.
-        int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2)) ;
+        int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
 
         canvas.drawText(text, xPos, yPos, paint);
 
-        return  bm;
+        return bm;
     }
 
 
@@ -848,7 +848,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         //Context context = MainActivity.context;
         Resources resources = activity.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)) ;
+        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
     }
 
@@ -866,13 +866,12 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         }
 
 
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.delete) {
             resetToolbar();
             return true;
         }
-        if(item.getTitle().equals("Share")) {
+        if (item.getTitle().equals("Share")) {
 
             //Toast.makeText(activity,"share", Toast.LENGTH_LONG).show();
 
@@ -887,9 +886,8 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                 screenShot(); //shareMap(); //screenShot(); //captureScreen(); //shareMap();
             }
 
-        }
-        else if(item.getTitle().equals("Delete")) {
-         //  Toast.makeText(activity,"Delete", Toast.LENGTH_LONG).show();
+        } else if (item.getTitle().equals("Delete")) {
+            //  Toast.makeText(activity,"Delete", Toast.LENGTH_LONG).show();
 
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setMessage("Are you sure you want to delete this activity ?");
@@ -900,10 +898,10 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                     "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            ActivityDBHelper  db = ActivityDBHelper.getInstance(activity);
+                            ActivityDBHelper db = ActivityDBHelper.getInstance(activity);
                             db.deleteActivity(String.valueOf(activityId));
                             item.setEnabled(false);
-                           // myMenu.add(Menu.NONE, 0, Menu.NONE, "Delete").setIcon(R.drawable.ic_trash_white).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                            // myMenu.add(Menu.NONE, 0, Menu.NONE, "Delete").setIcon(R.drawable.ic_trash_white).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                             dialog.cancel();
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -943,7 +941,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                     "No",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                           // resetToolbar();
+                            // resetToolbar();
                             dialog.cancel();
                         }
                     });
@@ -994,7 +992,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                     screenShot(); //shareMap(); // screenShot(); //captureScreen(); //shareMap();
                 } else {
                     Log.e("Permission", "Denied");
-                    Toast.makeText(activity,"To share the map you must give permission", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, "To share the map you must give permission", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -1002,8 +1000,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
 
-    private Bitmap takeScreenShot(Activity activity)
-    {
+    private Bitmap takeScreenShot(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -1014,7 +1011,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         int width = activity.getWindowManager().getDefaultDisplay().getWidth();
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
 
-        Bitmap b = Bitmap.createBitmap(b1, 0, dpToPx(70)+mMapView.getHeight(), width, height  - dpToPx(70)-mMapView.getHeight()-dpToPx(65));
+        Bitmap b = Bitmap.createBitmap(b1, 0, dpToPx(70) + mMapView.getHeight(), width, height - dpToPx(70) - mMapView.getHeight() - dpToPx(65));
         view.destroyDrawingCache();
         return b;
     }
@@ -1061,18 +1058,17 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
 
     }
 
-    public Bitmap takeScreenshot3(){
+    public Bitmap takeScreenshot3() {
         mMapView.setDrawingCacheEnabled(true);
         Bitmap bm = mMapView.getDrawingCache();
         return bm;
     }
 
 
-    public Bitmap CaptureMapScreen()
-    {
+    public Bitmap CaptureMapScreen() {
 
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
-            Bitmap bitmap  ;
+            Bitmap bitmap;
 
             @Override
             public void onSnapshotReady(Bitmap snapshot) {
@@ -1097,18 +1093,14 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         return myBitmap;
 
 
-
         // myMap is object of GoogleMap +> GoogleMap myMap;
         // which is initialized in onCreate() =>
         // myMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_pass_home_call)).getMap();
     }
 
 
-
-    public void captureScreen()
-    {
-        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback()
-        {
+    public void captureScreen() {
+        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
 
 
             @Override
@@ -1133,7 +1125,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                     canvas.drawBitmap(snapshot, new Matrix(), null);
                     canvas.drawBitmap(b1, 0, 0, null);
 
-                    Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height  - statusBarHeight);
+                    Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height - statusBarHeight);
                     view.destroyDrawingCache();
 
                     shareMap(bmOverlay);
@@ -1148,12 +1140,10 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
         myMap.snapshot(callback);
     }
 
-    public void openShareImageDialog(String filePath)
-    {
+    public void openShareImageDialog(String filePath) {
         File file = activity.getFileStreamPath(filePath);
 
-        if(!filePath.equals(""))
-        {
+        if (!filePath.equals("")) {
             final ContentValues values = new ContentValues(2);
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
             values.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
@@ -1163,13 +1153,11 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
             intent.setType("image/jpeg");
             intent.putExtra(android.content.Intent.EXTRA_STREAM, contentUriFile);
             startActivity(Intent.createChooser(intent, "Share Image"));
-        }
-        else
-        {
+        } else {
             //This is a custom class I use to show dialogs...simply replace this with whatever you want to show an error message, Toast, etc.
             // DialogUtilities.showOkDialogWithText(this, R.string.shareImageFailed);
 
-           // Toast.makeText(activity.getBaseContext(),"Try again",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(activity.getBaseContext(),"Try again",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1187,14 +1175,14 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
                     map.compress(Bitmap.CompressFormat.PNG, 90, out);
                     Bitmap toolbar = takeScreenShot(activity);
 
-                    Bitmap result = Bitmap.createBitmap(map.getWidth(), map.getHeight()+toolbar.getHeight(), map.getConfig());
+                    Bitmap result = Bitmap.createBitmap(map.getWidth(), map.getHeight() + toolbar.getHeight(), map.getConfig());
                     Canvas canvas = new Canvas(result);
                     canvas.drawBitmap(map, 0f, 0f, null);
                     canvas.drawBitmap(toolbar, 0f, map.getHeight(), null);
 
 
 //0f and 0f refers to coordinates of drawing, you may want to do some calculation here.
-                  //  canvas.drawBitmap(toolbar, 0f, map.getHeight(), null);
+                    //  canvas.drawBitmap(toolbar, 0f, map.getHeight(), null);
 
 // At this point base will have the mascot drawn, you may want to display it or save it somewhere else.
 
@@ -1209,14 +1197,14 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     }
 
     public void resetToolbar() {
-      //   myMenu.clear();
+        //   myMenu.clear();
         /*activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         activity.getSupportActionBar().setTitle("");
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 */
-       ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         myMenu.findItem(R.id.share).setVisible(false);
         myMenu.findItem(R.id.delete).setVisible(false);
     }

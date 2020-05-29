@@ -452,7 +452,6 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
                 LinearLayout info = new LinearLayout(context);
                 info.setOrientation(LinearLayout.VERTICAL);
 
-
                 TextView title = new TextView(context);
                 title.setTextColor(Color.BLACK);
                 title.setGravity(Gravity.CENTER);

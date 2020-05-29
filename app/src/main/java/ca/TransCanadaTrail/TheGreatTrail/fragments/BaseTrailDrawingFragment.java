@@ -139,6 +139,7 @@ public abstract class BaseTrailDrawingFragment extends Fragment {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+
                 initializeMap(googleMap);
                 BaseTrailDrawingFragment.this.onMapReady();
 

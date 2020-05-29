@@ -103,7 +103,6 @@ public class MapFragment extends HomeTabMapFragment {
     @BindView(R.id.tvDistance)
     TextView tvDistance;
 
-    private FloatingActionButton floatingActionButton;
     private boolean displayMap = true;
     private Tracker mTracker;
     private Polyline lastSelectedPolyline;
@@ -296,7 +295,13 @@ public class MapFragment extends HomeTabMapFragment {
     @Override
     protected void onMapReady() {
         super.onMapReady();
-        showMyFusedLocation();
+
+
+        /*Show button get my location on map*/
+        myMap.setMyLocationEnabled(true);
+        myMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+//        showMyFusedLocation();
 
         center = myMap.getCameraPosition().target;
         zoom = myMap.getCameraPosition().zoom;
@@ -477,14 +482,6 @@ public class MapFragment extends HomeTabMapFragment {
                     .addApi(LocationServices.API)
                     .build();
         }
-
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.location_toggle_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMyFusedLocation();
-            }
-        });
 
         displayMap = true;
 

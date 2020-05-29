@@ -25,21 +25,6 @@
                 map:cameraTargetLat="56.1304"
                 map:cameraTargetLng="-106.3468"
                 map:zoom="3" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/location_toggle_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom|right"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="10dp"
-                android:clickable="true"
-                app:backgroundTint="#FFFFFFFF"
-                app:srcCompat="@drawable/ic_my_loc"
-                tools:ignore="VectorDrawableCompat" />
-
         </RelativeLayout>
 
 

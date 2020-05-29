@@ -137,7 +137,6 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
     @BindView(R.id.drop_first_pin_tv)
     TextView dropFirstPinTv;
 
-    private FloatingActionButton floatingActionButton;
     private ImageView upBtn;
     private ImageView deleteBtn;
     private TextView distanceTxt;
@@ -396,6 +395,10 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
         goInMap(center, zoom);
         super.onMapReady();
         drawMarkers();
+
+        /*Show button get my location on map*/
+        myMap.setMyLocationEnabled(true);
+        myMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         center = myMap.getCameraPosition().target;
         zoom = myMap.getCameraPosition().zoom;
@@ -1133,14 +1136,6 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
                     .addApi(LocationServices.API)
                     .build();
         }
-
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.location_toggle_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMyFusedLocation();
-            }
-        });
 
         upBtn = (ImageView) view.findViewById(R.id.upBtn);
         upBtn.setImageResource(R.drawable.ic_arrow_measure_up);

@@ -46,7 +46,7 @@ public class AchievementsFragment extends Fragment implements GetStartedDialogFr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_achievements, container, false);
         ButterKnife.bind(this, view);
-        getStartedDialogIF = (MainActivity) getActivity();
+//        getStartedDialogIF = (GetStartedDialogIF) getActivity();
 
         loadUi();
         return view;

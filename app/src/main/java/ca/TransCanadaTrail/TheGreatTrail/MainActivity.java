@@ -30,8 +30,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Toast;
-
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -71,7 +69,7 @@ import ca.TransCanadaTrail.TheGreatTrail.OfflineMap.OfflineTrailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.HomeViewPagerAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.controllers.AchievementsManager;
-import ca.TransCanadaTrail.TheGreatTrail.fragments.AchievementsFragment;
+import ca.TransCanadaTrail.TheGreatTrail.fragments.ArchiveFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.BaseTrailDrawingFragment;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
@@ -85,7 +83,7 @@ import static ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment.mapfragTagSt
 import static ca.TransCanadaTrail.TheGreatTrail.MeasureTool.MeasureFragment.measurefragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.MeasureTool.MeasureFragment.measurefragTagStack;
 
-public class MainActivity extends AppCompatActivity implements AchievementsFragment.GetStartedDialogIF, MainAdapter.OnCloseNavigationViewListener {
+public class MainActivity extends AppCompatActivity implements ArchiveFragment.GetStartedDialogIF, MainAdapter.OnCloseNavigationViewListener {
 
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
     public static final int DOWNLOAD_BADGE_ELPASED_TIME = 10000;

@@ -1,35 +1,18 @@
 package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.TransCanadaTrail.TheGreatTrail.R;
-import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
-import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
-
-/**
- * Created by Islam Salah on 7/16/17.
- */
 
 public class AchievementDetailsFragment extends Fragment {
     private static final String ARGUMENT_ACHIEVEMENT_ID = "args-achievement-id";
@@ -71,49 +54,47 @@ public class AchievementDetailsFragment extends Fragment {
     private void setUIValues() {
         Bundle args = getArguments();
         int id = args.getInt(ARGUMENT_ACHIEVEMENT_ID);
-        ArrayList<Achievement> achievements = AchievementsDao.getInstance().findWithId(getActivity(), Achievement.ID_FIELD_NAME, id);
-
-        if (achievements == null || achievements.size() == 0)
-            return;
-
-        Achievement achievement = achievements.get(0);
-
-        achievementTitleTV.setText(achievement.getAchievementTitle(getActivity()));
-        achievementDescriptionTV.setText(achievement.getAchievementDescription(getActivity()));
-        achievementIV.setImageDrawable(achievement.getAchievementImage(getActivity()));
-
-        if (achievement.isUnlocked()) {
-            earnedDateTV.setVisibility(View.VISIBLE);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
-            Date unlockDate = achievement.getUnlockDate();
-
-            if (unlockDate == null)
-                return;
-            String unlockDateFormatted = simpleDateFormat.format(unlockDate);
-            earnedDateTV.setText(getString(R.string.achievement_earned_date, unlockDateFormatted));
+        switch (id){
+            case 1:
+                achievementTitleTV.setText("Download");
+                achievementDescriptionTV.setText("Thanks for downloading app!\nExplore Canada via The Great Trail");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_download_archive_yellow));
+                break;
+            case 2:
+                achievementTitleTV.setText("Navigation");
+                achievementDescriptionTV.setText("Search the app to find the Trail nearest \n you and get out on the Great Trail.");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_navigation));
+                break;
+            case 3:
+                achievementTitleTV.setText("Experience");
+                achievementDescriptionTV.setText("Spend 2 hours exploring on The Great Trail");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_experience));
+                break;
+            case 4:
+                achievementTitleTV.setText("Explorer");
+                achievementDescriptionTV.setText("Explore the Trail in 2 Provinces");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_explorer));
+                break;
+            case 5:
+                achievementTitleTV.setText("Adventure");
+                achievementDescriptionTV.setText("Visit the Trail 2x in a week.  Use the Trail to commute or plan a weekend adventure.");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_adventure));
+                break;
+            case 6:
+                achievementTitleTV.setText("Tracker");
+                achievementDescriptionTV.setText("Get active on the Great Trail, track 10km on the Trail.");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_tracker));
+                break;
+            case 7:
+                achievementTitleTV.setText("Champion");
+                achievementDescriptionTV.setText("Get active on the Great Trail, track 50km on the Trail.");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_champion));
+                break;
+            case 8:
+                achievementTitleTV.setText("Elevation");
+                achievementDescriptionTV.setText("Change of elevation. Enjoy the views\nalong The Great Trail, gain 150 meters.");
+                achievementIV.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_elevation));
+                break;
         }
-
-        if(!achievement.isUnlocked())
-            return;
-
-        if (!achievement.isSeenAchievement()) {
-            setAnimation(achievement);
-            AchievementsDao.getInstance().updateSeenField(getActivity(), achievement.getId(), true);
-        }
-    }
-
-    private void setAnimation(Achievement achievement) {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
-        Drawable[] layers = new Drawable[2];
-        layers[0] = new BitmapDrawable(getActivity().getResources(), BitmapFactory.decodeResource(getActivity().getResources(), achievement.getDrawableIdFromName(getActivity(), achievement.getImageUrlInactive())));
-        layers[1] = new BitmapDrawable(getActivity().getResources(), BitmapFactory.decodeResource(getActivity().getResources(), achievement.getDrawableIdFromName(getActivity(), achievement.getImageUrlActive())));
-
-        TransitionDrawable transitionDrawable = new TransitionDrawable(layers);
-        achievementIV.setImageDrawable(transitionDrawable);
-
-        transitionDrawable.startTransition(1000);
-        achievementIV.startAnimation(animation);
-
     }
 }

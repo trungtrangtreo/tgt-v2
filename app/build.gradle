@@ -140,6 +140,9 @@ dependencies {
 
     /* Dexter runtime permissions */
     implementation 'com.karumi:dexter:4.2.0'
+
+    /* SDP - a scalable size unit */
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

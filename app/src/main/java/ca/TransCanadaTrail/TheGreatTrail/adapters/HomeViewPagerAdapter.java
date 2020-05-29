@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment;
 import ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment;
 import ca.TransCanadaTrail.TheGreatTrail.MeasureTool.MeasureFragment;
-import ca.TransCanadaTrail.TheGreatTrail.fragments.AchievementsFragment;
+import ca.TransCanadaTrail.TheGreatTrail.fragments.ArchiveFragment;
 
 /**
  * Created by Islam Salah on 7/17/17.
@@ -36,7 +36,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
             case TRACKER_FRAGMENT_INDEX:
                 return ActivityTrackerFragment.newInstance();
             case ACHIEVMENETS_FRAGMENT_INDEX:
-                return AchievementsFragment.newInstance();
+                return ArchiveFragment.newInstance();
             default:
                 return null;
         }

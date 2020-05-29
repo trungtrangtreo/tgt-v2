@@ -81,6 +81,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -138,6 +139,9 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
     Button activityBtn;
     @BindView(R.id.chronometer)
     Chronometer chrono;
+    @BindView(R.id.viewBorder)
+    View viewBorder;
+
     MenuItem searchItem;
     ReceiverManager receiverManager;
     double diffElevation = 0;
@@ -152,7 +156,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
     private BroadcastReceiver mReceiver;
     private LatLng latLngOld = new LatLng(0, 0);
     private long activityId = 0;
-    private int colorLine = Color.BLACK;
+    private int colorLine = Color.YELLOW;
     private Boolean displayMenu = false;
     private long timeWhenStopped = 0;
     private Tracker mTracker;
@@ -296,11 +300,11 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                     Intent intent = new Intent(activity, TrackService.class);
                     activity.startService(intent);
 
-                    colorLine = Color.BLACK;
+//                    colorLine = Color.BLACK;
                 } else if (state.equals("Pause")) {
-                    colorLine = Color.GRAY;
+//                    colorLine = Color.GRAY;
                 } else if (state.equals("Offline")) {
-                    colorLine = Color.RED;
+//                    colorLine = Color.RED;
                 }
 
 
@@ -371,6 +375,9 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                     ivStart.setVisibility(View.GONE);
                     ivPause.setVisibility(View.VISIBLE);
                     ivFinish.setVisibility(View.VISIBLE);
+                    viewBorder.setVisibility(View.VISIBLE);
+                    ivTrackerActivity.setVisibility(View.GONE);
+
 
                     if (state.equals("Stop")) {
 
@@ -398,7 +405,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                     startBtn.setText(R.string.menu);
                     displayMenu = true;
-                    colorLine = Color.BLACK;
+//                    colorLine = Color.BLACK;
 
 
                     ActivityDBHelper db = new ActivityDBHelper(activity);
@@ -460,7 +467,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                 startBtn.setText(R.string.menu);
                 displayMenu = true;
-                colorLine = Color.BLACK;
+//                colorLine = Color.BLACK;
 
 
                 ActivityDBHelper db = new ActivityDBHelper(activity);
@@ -490,7 +497,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                 timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
                 chrono.stop();
 
-                colorLine = Color.GRAY;
+//                colorLine = Color.GRAY;
                 startBtn.setText(R.string.start);
                 displayMenu = false;
 
@@ -516,7 +523,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
-                    replaceFragment(R.id.trackerSearchLayout, activityLogFragment);
+                replaceFragment(R.id.trackerSearchLayout, activityLogFragment);
             }
         });
 
@@ -839,7 +846,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                 chrono.stop();
                 Log.i("Stopppppppp", "service is stopppppppppppppppped");
 
-                colorLine = Color.GRAY;
+//              colorLine = Color.GRAY;
                 startBtn.setText(R.string.start);
                 displayMenu = false;
 
@@ -917,10 +924,32 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                 ivResume.setVisibility(View.GONE);
                 ivStart.setVisibility(View.VISIBLE);
                 ivPause.setVisibility(View.GONE);
+                viewBorder.setVisibility(View.GONE);
+                ivTrackerActivity.setVisibility(View.VISIBLE);
 
             }
         });
         builder.setNegativeButton(R.string.cancel_button, null);
+
+        builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                ivFinish.setVisibility(View.GONE);
+                ivResume.setVisibility(View.GONE);
+                ivStart.setVisibility(View.VISIBLE);
+                ivPause.setVisibility(View.GONE);
+                viewBorder.setVisibility(View.GONE);
+                ivTrackerActivity.setVisibility(View.VISIBLE);
+
+                ActivityDBHelper db = ActivityDBHelper.getInstance(activity);
+                db.deleteActivity(String.valueOf(activityId));
+                db.close();
+
+
+                resetFields();
+            }
+        });
 
 
         final AlertDialog alertDialog = builder.create();
@@ -972,7 +1001,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         startBtn.setText(R.string.start);  // "Start"
         displayMenu = false;
 
-        colorLine = Color.BLACK;
+//      colorLine = Color.BLACK;
         distance = 0;
         firstAltitude = Double.MIN_VALUE;
         diffElevation = 0;
@@ -1288,7 +1317,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             return;
         Polyline polyline = googleMap.addPolyline((new PolylineOptions())
                 .add(latLngOld, latLngNew)
-                .width(5).color(colorLine)
+                .width(5).color(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.yellow))
                 .geodesic(true));
 
         if (activityTrackingPolylines != null)
@@ -1298,27 +1327,27 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
     private void addAllLines(GoogleMap googleMap, List<PointState> points) {
 
         Log.i(TrackService.TAG, "addAllLines    iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii size =  " + points.size());
-        int colorLine = Color.BLACK;
+//        int colorLine = Color.YELLOW;
         distance = 0;
 
         googleMap.clear();
         for (int i = 0; i < points.size() - 1; i++) {
-            switch (points.get(i).getState()) {
-                case "Run":
-                    colorLine = Color.BLACK;
-                    break;
-                case "Pause":
-                    colorLine = Color.GRAY;
-                    break;
-                case "Offline":
-                    colorLine = Color.RED;
-                    break;
-                case "Stop":
-                    colorLine = Color.WHITE;
-                    break;
-                default:
-                    colorLine = Color.WHITE;
-            }
+//            switch (points.get(i).getState()) {
+//                case "Run":
+//                    colorLine = Color.BLACK;
+//                    break;
+//                case "Pause":
+//                    colorLine = Color.GRAY;
+//                    break;
+//                case "Offline":
+//                    colorLine = Color.RED;
+//                    break;
+//                case "Stop":
+//                    colorLine = Color.WHITE;
+//                    break;
+//                default:
+//                    colorLine = Color.WHITE;
+//            }
             Polyline polyline = googleMap.addPolyline((new PolylineOptions())
                     // .add(TIMES_SQUARE, BROOKLYN_BRIDGE, LOWER_MANHATTAN,TIMES_SQUARE)
                     .add(points.get(i).getPoint(), points.get(i + 1).getPoint())

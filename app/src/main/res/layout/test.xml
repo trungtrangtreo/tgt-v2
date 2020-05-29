@@ -54,24 +54,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_tiny"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <Chronometer
                         android:id="@+id/chronometer"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.60"
+                        android:layout_height="wrap_content"
+                        android:format="00:00:00"
                         android:gravity="center"
-                        android:text="00:00:00"
                         android:textColor="@color/md_white_1000"
-                        android:textSize="@dimen/font_small"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
                         android:visibility="visible" />
 
                     <TextView
@@ -83,108 +83,131 @@
                         android:text="@string/time"
                         android:textAlignment="center"
                         android:textColor="@color/md_white_1000"
-                        android:textSize="@dimen/font_tiny" />
+                        android:textSize="@dimen/font_micro" />
 
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/viewBorder"
                     android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/md_white_1000" />
+                    android:layout_height="39dp"
+                    android:background="@color/md_white_1000"
+                    android:visibility="gone" />
+
 
                 <LinearLayout
+                    android:id="@+id/llDistance"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_tiny"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/llDistance"
-                        android:layout_width="0dp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/txtDistance"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="0 km"
+                            android:text="0.0"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/font_small" />
-
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/distance"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@+id/txtDistance"
+                            android:text="km"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/font_tiny" />
+                            android:textSize="@dimen/font_micro" />
+                    </RelativeLayout>
 
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llElevation"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/spacing_micro"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/distance"
+                        android:textAlignment="center"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/font_micro" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llElevation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_micro"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/txtElevation"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="0 m"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/font_small" />
-
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/elevation"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@+id/txtElevation"
+                            android:text="km"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/font_tiny" />
+                            android:textSize="@dimen/font_micro" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/ivTrackerActivity"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:padding="@dimen/spacing_micro"
-                        android:src="@drawable/ic_tracker_activity_new" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/elevation"
+                        android:textAlignment="center"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/font_micro" />
+
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivTrackerActivity"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/spacing_micro"
+                    android:src="@drawable/ic_tracker_activity_new" />
             </LinearLayout>
 
             <include
                 layout="@layout/include_button_tracker"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2" />
+                android:layout_weight="2.2" />
 
         </LinearLayout>
-
-        <!--    <FrameLayout-->
-        <!--        android:id="@+id/trackerSearchLayout"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:background="@android:color/white"-->
-        <!--        android:visibility="gone" />-->
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -199,10 +222,6 @@
                 android:background="@color/md_white_1000"
                 android:orientation="vertical">
 
-                <!-- Layout 2-->
-
-
-                <!-- Layout 3-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
@@ -266,18 +285,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_gravity="center"
-                                android:layout_weight="0.60"
-                                android:gravity="center"
-                                android:text="0 km"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="22dp" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_gravity="center"
                                 android:layout_weight="0.40"
                                 android:gravity="center"
                                 android:text="@string/distance"
@@ -303,16 +310,6 @@
                             android:background="@color/md_white_1000"
                             android:orientation="vertical">
 
-
-                            <Chronometer
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="0.60"
-                                android:gravity="center"
-                                android:text="00:00:00"
-                                android:textColor="@color/black"
-                                android:textSize="22dp"
-                                android:visibility="visible" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -349,18 +346,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_gravity="center"
-                                android:layout_weight="0.60"
-                                android:gravity="center"
-                                android:text="0 m"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="22dp" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_gravity="center"
                                 android:layout_weight="0.40"
                                 android:gravity="center"
                                 android:text="@string/elevation"
@@ -371,15 +356,9 @@
                         </LinearLayout>
 
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
-
         </FrameLayout>
-
 
     </LinearLayout>
 

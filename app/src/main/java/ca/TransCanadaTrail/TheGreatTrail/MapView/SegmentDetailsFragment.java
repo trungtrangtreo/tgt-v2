@@ -15,6 +15,7 @@ import android.graphics.Paint;
 import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -24,8 +25,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -280,50 +286,73 @@ public class SegmentDetailsFragment extends Fragment {
                 resourcesSeparator.setVisibility(View.VISIBLE);
 
                 if (Build.VERSION.SDK_INT >= 24) {
-                    link1 = Html.fromHtml("<a href=\"" + segment.websiteUrl1 + "\">" + segment.groupName1 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
+                    link1 = Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl1 + "\">" + segment.groupName1 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
 
                 } else {
-                    link1 = (Html.fromHtml("<a href=\"" + segment.websiteUrl1 + "\">" + segment.groupName1 + "</a>")); // or for older api
+                    link1 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl1 + "\">" + segment.groupName1 + "</a>")); // or for older api
                 }
 
-                resourcesTxt1.setMovementMethod(LinkMovementMethod.getInstance());
-                resourcesTxt1.setText(link1);
+                resourcesTxt1.setText(segment.groupName1 );
+
+                resourcesTxt1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openWebView(segment.websiteUrl1);
+                    }
+                });
 
                 if (!segment.groupName2.equals("") && !segment.websiteUrl2.equals("")) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        link2 = Html.fromHtml("<a href=\"" + segment.websiteUrl2 + "\">" + segment.groupName2 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
+                        link2 = Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl2 + "\">" + segment.groupName2 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
 
                     } else {
-                        link2 = (Html.fromHtml("<a href=\"" + segment.websiteUrl2 + "\">" + segment.groupName2 + "</a>")); // or for older api
+                        link2 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl2 + "\">" + segment.groupName2 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt2.setMovementMethod(LinkMovementMethod.getInstance());
-                    resourcesTxt2.setText(link2);
+                    resourcesTxt2.setText(segment.groupName2);
 
+                    resourcesTxt2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openWebView(segment.websiteUrl2);
+                        }
+                    });
                 }
 
                 if (!segment.groupName3.equals("") && !segment.websiteUrl3.equals("")) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        link3 = Html.fromHtml("<a href=\"" + segment.websiteUrl3 + "\">" + segment.groupName3 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
+                        link3 = Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl3 + "\">" + segment.groupName3 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
 
                     } else {
-                        link3 = (Html.fromHtml("<a href=\"" + segment.websiteUrl3 + "\">" + segment.groupName3 + "</a>")); // or for older api
+                        link3 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl3 + "\">" + segment.groupName3 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt3.setMovementMethod(LinkMovementMethod.getInstance());
-                    resourcesTxt3.setText(link3);
+                    resourcesTxt3.setText(segment.groupName3);
+
+                    resourcesTxt3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openWebView(segment.websiteUrl3);
+                        }
+                    });
                 }
 
                 if (!segment.groupName4.equals("") && !segment.websiteUrl4.equals("")) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        link4 = Html.fromHtml("<a href=\"" + segment.websiteUrl4 + "\">" + segment.groupName4 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
+                        link4 = Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl4 + "\">" + segment.groupName4 + "</a>", Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
 
                     } else {
-                        link4 = (Html.fromHtml("<a href=\"" + segment.websiteUrl4 + "\">" + segment.groupName4 + "</a>")); // or for older api
+                        link4 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl4 + "\">" + segment.groupName4 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt4.setMovementMethod(LinkMovementMethod.getInstance());
-                    resourcesTxt4.setText(link4);
+                    resourcesTxt4.setText(segment.groupName4);
+
+                    resourcesTxt4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openWebView(segment.websiteUrl4);
+                        }
+                    });
                 }
 
             } else {
@@ -336,6 +365,12 @@ public class SegmentDetailsFragment extends Fragment {
         cursor.close();
 
         return view;
+    }
+
+    private void openWebView(String linkUrl) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(linkUrl));
+        startActivity(i);
     }
 
     @Override

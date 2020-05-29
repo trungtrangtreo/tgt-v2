@@ -10,18 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.AchievementDetailsFragment;
-import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
-import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
-
-/**
- * Created by Islam Salah on 7/17/17.
- */
 
 public class AchievementDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_ACHIEVEMENT_ID = "extra-achievement-id";
@@ -76,8 +69,8 @@ public class AchievementDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-        Achievement achievement = AchievementsDao.getInstance().findWithId(this, Achievement.ID_FIELD_NAME, id).get(0);
-        getSupportActionBar().setTitle(achievement.getAchievementTitle(this));
+//      Achievement achievement = AchievementsDao.getInstance().findWithId(this, Achievement.ID_FIELD_NAME, id).get(0);
+//      getSupportActionBar().setTitle(achievement.getAchievementTitle(this));
     }
 
 }

@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.ArchiveAdapter;
+import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
+import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
 
 public class ArchiveFragment extends Fragment implements GetStartedDialogFragment.GetStartedDialogIF {
@@ -28,6 +32,8 @@ public class ArchiveFragment extends Fragment implements GetStartedDialogFragmen
         return new ArchiveFragment();
     }
 
+    private ArrayList<Achievement> achievements;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,9 +43,15 @@ public class ArchiveFragment extends Fragment implements GetStartedDialogFragmen
 
         getStartedDialogIF = (GetStartedDialogIF) getActivity();
 
-        setGetStartedDialog();
+//      setGetStartedDialog();
+
+        loadAchievements();
 
         return view;
+    }
+
+    private void loadAchievements() {
+        achievements = AchievementsDao.getInstance().findAll(getActivity());
     }
 
     private void initView(View view) {

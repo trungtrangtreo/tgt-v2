@@ -2,15 +2,19 @@ package ca.TransCanadaTrail.TheGreatTrail;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,9 +27,11 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.MessageDigest;
@@ -54,15 +60,15 @@ public class SplashScreenActivity extends Activity {
     private String workPath = "/data/data/ca.TransCanadaTrail.TheGreatTrail/databases/";
     private String dbName = "trailDb.sqlite";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        File folder = new File(workPath);
-//        if (!folder.exists()) {
-//            folder.mkdir();
-//        }
+        ProgressDialog pd = new ProgressDialog(SplashScreenActivity.this, R.style.MyTheme);
+        pd.setIndeterminate(false);
+        pd.show();
 
         DoCalculations doCalculations = new DoCalculations(SplashScreenActivity.this);
         doCalculations.execute();
@@ -269,6 +275,7 @@ public class SplashScreenActivity extends Activity {
         };
         queue.add(postRequest);
     }
+
     private void retrieveTrailFromDB() {
         if (MainActivity.listPoints != null && !MainActivity.listPoints.isEmpty())
             return;

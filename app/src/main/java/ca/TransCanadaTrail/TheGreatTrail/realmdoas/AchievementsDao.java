@@ -1,13 +1,10 @@
 package ca.TransCanadaTrail.TheGreatTrail.realmdoas;
 
 import android.content.Context;
-
 import java.util.Date;
-
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import io.realm.Realm;
 import io.realm.RealmQuery;
-
 
 /**
  * Created by Ayman Mahgoub on 3/10/17.

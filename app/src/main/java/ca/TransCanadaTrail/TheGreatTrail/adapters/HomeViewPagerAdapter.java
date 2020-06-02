@@ -9,10 +9,6 @@ import ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment;
 import ca.TransCanadaTrail.TheGreatTrail.MeasureTool.MeasureFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.ArchiveFragment;
 
-/**
- * Created by Islam Salah on 7/17/17.
- */
-
 public class HomeViewPagerAdapter extends FragmentPagerAdapter {
 
     public static final int MAP_FRAGMENT_INDEX = 0;

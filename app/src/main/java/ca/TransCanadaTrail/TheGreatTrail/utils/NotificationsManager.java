@@ -36,6 +36,11 @@ public class NotificationsManager {
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_BASE + achievement.getId(), notification);
     }
 
+    public static void showNotification(Context context, String title, String notificationMsg) {
+        Notification notification = createNotification(context, 0, title, notificationMsg);
+        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_BASE, notification);
+    }
+
     private static Notification createNotification(Context context, int notificationId, String notificationTitle, String notificationMsg) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

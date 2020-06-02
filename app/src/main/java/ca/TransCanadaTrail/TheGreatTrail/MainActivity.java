@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -69,12 +70,15 @@ import ca.TransCanadaTrail.TheGreatTrail.OfflineMap.OfflineTrailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.HomeViewPagerAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.controllers.AchievementsManager;
+import ca.TransCanadaTrail.TheGreatTrail.fragments.AchievementsFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.ArchiveFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.BaseTrailDrawingFragment;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
 import ca.TransCanadaTrail.TheGreatTrail.utils.DownloadedAppBadgeBroadcastReceiver;
+import ca.TransCanadaTrail.TheGreatTrail.utils.NotificationsManager;
+import ca.TransCanadaTrail.TheGreatTrail.utils.SharedPrefUtils;
 
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragTagStack;
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements ArchiveFragment.G
                 getClass().getName());
         mWakeLock.acquire();
 
+        showNotifyDownloadFirstApp();
         showToolbar();
 
         AppController application = (AppController) getApplication();
@@ -175,6 +180,14 @@ public class MainActivity extends AppCompatActivity implements ArchiveFragment.G
 
         initNavigationDrawerAdapter();
 
+    }
+
+    private void showNotifyDownloadFirstApp() {
+
+        if (SharedPrefUtils.isShowNotification(this)) {
+            NotificationsManager.showNotification(this, getString(R.string.badge_download_app_message), getString(R.string.badge_download_app_description));
+        }
+        SharedPrefUtils.saveStateNotification(this, false);
     }
 
     private void initNavigationDrawerAdapter() {

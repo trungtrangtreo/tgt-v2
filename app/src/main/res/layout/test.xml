@@ -70,9 +70,7 @@
                         android:format="00:00:00"
                         android:gravity="center"
                         android:textColor="@color/md_white_1000"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
+                        android:textSize="@dimen/_22sdp"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -114,16 +112,15 @@
                             android:text="0.0"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/_14sdp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/_22sdp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/spacing_normal"
                             android:layout_toEndOf="@+id/txtDistance"
-                            android:text="km"
+                            android:text="KM"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
                             android:textSize="@dimen/font_micro" />
@@ -161,19 +158,18 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="0 m"
+                            android:text="0.0"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/_14sdp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/_22sdp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/spacing_normal"
                             android:layout_toEndOf="@+id/txtElevation"
-                            android:text="km"
+                            android:text="M"
                             android:textAlignment="center"
                             android:textColor="@color/md_white_1000"
                             android:textSize="@dimen/font_micro" />
@@ -197,7 +193,6 @@
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:padding="@dimen/spacing_micro"
                     android:src="@drawable/ic_tracker_activity_new" />
             </LinearLayout>
 

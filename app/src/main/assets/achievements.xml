@@ -2,7 +2,7 @@
 <achievements>
     <achievement>
         <id>1</id>
-        <title>badge_download_app_message</title>
+        <title>RealmConfiguration</title>
         <description>badge_download_app_description</description>
         <image-name-inactive>downloadtheapp_option2_copy_inactive</image-name-inactive>
         <image-name-active>download_the_app_option2</image-name-active>

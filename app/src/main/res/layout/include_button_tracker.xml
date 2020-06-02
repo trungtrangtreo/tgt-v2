@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="@dimen/spacing_small">
+    android:paddingTop="@dimen/spacing_tiny"
+    android:paddingBottom="@dimen/spacing_tiny">
 
     <ImageView
         android:id="@+id/ivStart"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_weight="1"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
         android:src="@drawable/ic_start" />
 
     <ImageView
         android:id="@+id/ivPause"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_weight="1"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_toEndOf="@+id/ivStart"
         android:src="@drawable/ic_pause"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivResume"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_weight="1"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_toEndOf="@+id/ivPause"
         android:src="@drawable/ic_resume"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivFinish"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_weight="1"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginStart="@dimen/spacing_micro"
+        android:layout_toEndOf="@+id/ivResume"
         android:src="@drawable/ic_finish"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

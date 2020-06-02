@@ -7,6 +7,7 @@ public class SharedPrefUtils {
 
     private static final String PREF_APP = "pref_tgt_app";
     private static final String IS_HOW_USED = "is_how_used";
+    private static final String IS_SHOW_NOTIFICATION = "is_show_notification";
 
     private SharedPrefUtils() {
         throw new UnsupportedOperationException(
@@ -37,6 +38,31 @@ public class SharedPrefUtils {
 
         return context.getSharedPreferences(PREF_APP, Context.MODE_PRIVATE).getBoolean(IS_HOW_USED, false);
     }
+
+    /**
+     * Save data.
+     *
+     * @param context the context
+     * @param state the key
+     */
+    static public void saveStateNotification(Context context, boolean state) {
+        context.getSharedPreferences(PREF_APP, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(IS_SHOW_NOTIFICATION, state)
+                .apply();
+    }
+
+    /**
+     * Gets boolean data.
+     *
+     * @param context the context
+     * @return the boolean is click button GET STARTED or not click
+     */
+    static public boolean isShowNotification(Context context) {
+        return context.getSharedPreferences(PREF_APP, Context.MODE_PRIVATE).getBoolean(IS_SHOW_NOTIFICATION, true);
+    }
+
+
 
     /**
      * Gets int data.

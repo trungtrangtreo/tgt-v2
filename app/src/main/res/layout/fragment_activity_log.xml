@@ -44,10 +44,10 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="0.40"
-        android:gravity="center"
         android:background="@color/md_black_1000"
-        android:textColor="@color/md_white_1000"
+        android:gravity="center"
         android:text="@string/activity_log_message"
+        android:textColor="@color/md_white_1000"
         android:visibility="gone" />
 
 
@@ -55,7 +55,7 @@
         android:id="@+id/list_Log"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.40"
+        android:layout_weight="0.20"
         android:background="@color/md_black_1000"
         android:visibility="gone" />
 

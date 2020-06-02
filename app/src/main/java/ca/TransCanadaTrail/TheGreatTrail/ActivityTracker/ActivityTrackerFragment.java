@@ -81,6 +81,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -276,8 +277,8 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             state = preferences.getString("State", "Stop");
             long startTime = preferences.getLong("Time", SystemClock.elapsedRealtime());
             diffElevation = preferences.getFloat("elevation", 0);
-            String elevationString = String.format("%.2f", diffElevation);
-            txtElevation.setText(elevationString + " m");
+            String elevationString = String.format(Locale.US, "%.1f", diffElevation);
+            txtElevation.setText(elevationString);
 
             TrackingManager trackingManager = TrackingManager.getInstance();
             trackingManager.loadTrackingInfo(getActivity());
@@ -367,57 +368,53 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         ivStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (displayMenu) {
-                    showPopupMenu(v);
-                } else {
 
-                    // Start and trigger a service
-                    ivStart.setVisibility(View.GONE);
-                    ivPause.setVisibility(View.VISIBLE);
-                    ivFinish.setVisibility(View.VISIBLE);
-                    viewBorder.setVisibility(View.VISIBLE);
-                    ivTrackerActivity.setVisibility(View.GONE);
+                // Start and trigger a service
+                ivStart.setVisibility(View.GONE);
+                ivPause.setVisibility(View.VISIBLE);
+                ivFinish.setVisibility(View.VISIBLE);
+                viewBorder.setVisibility(View.VISIBLE);
+                ivTrackerActivity.setVisibility(View.GONE);
 
 
-                    if (state.equals("Stop")) {
+                if (state.equals("Stop")) {
 
-                        editor.putBoolean("WriteOnBD", true); // value to store
-                        editor.putLong("Time", SystemClock.elapsedRealtime() + timeWhenStopped); // value to store Pause to state
-                        editor.putBoolean("Service", true); // value to store
-                        editor.putFloat("elevation", 0);
-                        editor.commit();
+                    editor.putBoolean("WriteOnBD", true); // value to store
+                    editor.putLong("Time", SystemClock.elapsedRealtime() + timeWhenStopped); // value to store Pause to state
+                    editor.putBoolean("Service", true); // value to store
+                    editor.putFloat("elevation", 0);
+                    editor.commit();
 
-                        // Start Tracking
-                        TrackingManager trackingManager = TrackingManager.getInstance();
-                        trackingManager.loadTrackingInfo(getActivity());
-                        trackingManager.startTrackingListeners(getActivity());
+                    // Start Tracking
+                    TrackingManager trackingManager = TrackingManager.getInstance();
+                    trackingManager.loadTrackingInfo(getActivity());
+                    trackingManager.startTrackingListeners(getActivity());
 
-                        Intent intent = new Intent(activity, TrackService.class);
-                        activity.startService(intent);
+                    Intent intent = new Intent(activity, TrackService.class);
+                    activity.startService(intent);
 
-                        distance = 0;
-                        firstAltitude = Double.MIN_VALUE; // the min value
-                    }
-                    // In case it is returned from pause state
-                    TrackingManager.getInstance().setTracking(true);
-                    chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-                    chrono.start();
+                    distance = 0;
+                    firstAltitude = Double.MIN_VALUE; // the min value
+                }
+                // In case it is returned from pause state
+                TrackingManager.getInstance().setTracking(true);
+                chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                chrono.start();
 
-                    startBtn.setText(R.string.menu);
-                    displayMenu = true;
+                startBtn.setText(R.string.menu);
+                displayMenu = true;
 //                    colorLine = Color.BLACK;
 
 
-                    ActivityDBHelper db = new ActivityDBHelper(activity);
-                    db.writeEmptyActivity();
-                    activityId = db.giveMeLastId();
-                    db.close();
+                ActivityDBHelper db = new ActivityDBHelper(activity);
+                db.writeEmptyActivity();
+                activityId = db.giveMeLastId();
+                db.close();
 
-                    editor.putString("State", "Run"); // value to store Pause to state
-                    editor.commit();
+                editor.putString("State", "Run"); // value to store Pause to state
+                editor.commit();
 
-                    state = "Run";
-                }
+                state = "Run";
             }
         });
 
@@ -522,6 +519,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                 activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+                activity.enableViews(true);
 
                 replaceFragment(R.id.trackerSearchLayout, activityLogFragment);
             }
@@ -744,8 +742,13 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
     @Override
     protected void initializeMap(GoogleMap googleMap) {
+
         myMap = googleMap;
-        myMap.getUiSettings().setRotateGesturesEnabled(false);
+//      myMap.getUiSettings().setRotateGesturesEnabled(false);
+
+        /*Show button get my location on map*/
+        myMap.setMyLocationEnabled(true);
+        myMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         if (MainActivity.listSegments == null) {
             myMap.setOnCameraIdleListener(null);
@@ -769,9 +772,6 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                 return;
             }
         }
-        myMap.setMyLocationEnabled(true);
-        myMap.getUiSettings().setMyLocationButtonEnabled(false);
-
 
         if (serviceIsStarted) {
             ActivityDBHelper db = new ActivityDBHelper(activity);
@@ -995,8 +995,8 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         chrono.stop();
         chrono.setText("00:00:00");
 
-        txtElevation.setText("0 m");
-        txtDistance.setText("0 km");
+        txtElevation.setText("0.0");
+        txtDistance.setText("0.0");
 
         startBtn.setText(R.string.start);  // "Start"
         displayMenu = false;
@@ -1069,7 +1069,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             }
 
         }
-        return distanceTxt + " km";
+        return distanceTxt;
     }
 
     private float ConvertMToKmFloat(long distance) {
@@ -1189,9 +1189,9 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
                                     elevationDisplayed = elevationDisplayed + elevationsList.get(i + 1).getElevation() - elevationsList.get(i).getElevation();
                                 }
                             }
-                            String distanceString = String.format("%.2f", elevationDisplayed);
+                            String distanceString = String.format(Locale.US, "%.1f", elevationDisplayed);
 
-                            txtElevation.setText(distanceString + " m");
+                            txtElevation.setText(distanceString);
 
                             diffElevation = elevationDisplayed;
 
@@ -1317,7 +1317,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             return;
         Polyline polyline = googleMap.addPolyline((new PolylineOptions())
                 .add(latLngOld, latLngNew)
-                .width(5).color(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.yellow))
+                .width(5).color(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.yellow))
                 .geodesic(true));
 
         if (activityTrackingPolylines != null)

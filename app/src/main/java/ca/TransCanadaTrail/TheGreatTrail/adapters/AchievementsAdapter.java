@@ -16,6 +16,10 @@ import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 
+/**
+ * Created by Islam Salah on 7/12/17.
+ */
+
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.AchievementVH> {
 
     private Context context;

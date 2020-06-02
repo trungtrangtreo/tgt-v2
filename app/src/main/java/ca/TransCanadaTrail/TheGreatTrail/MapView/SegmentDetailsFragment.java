@@ -25,13 +25,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -56,15 +50,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.TransCanadaTrail.TheGreatTrail.AppController;
@@ -74,7 +65,6 @@ import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.database.ActivityDBHelperTrail;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Utility;
-
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragTagStack;
 import static ca.TransCanadaTrail.TheGreatTrail.MainActivity.currentTab;
@@ -292,14 +282,8 @@ public class SegmentDetailsFragment extends Fragment {
                     link1 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl1 + "\">" + segment.groupName1 + "</a>")); // or for older api
                 }
 
-                resourcesTxt1.setText(segment.groupName1 );
-
-                resourcesTxt1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        openWebView(segment.websiteUrl1);
-                    }
-                });
+                resourcesTxt1.setMovementMethod(LinkMovementMethod.getInstance());
+                resourcesTxt1.setText(link1);
 
                 if (!segment.groupName2.equals("") && !segment.websiteUrl2.equals("")) {
                     if (Build.VERSION.SDK_INT >= 24) {
@@ -309,14 +293,8 @@ public class SegmentDetailsFragment extends Fragment {
                         link2 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl2 + "\">" + segment.groupName2 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt2.setText(segment.groupName2);
-
-                    resourcesTxt2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openWebView(segment.websiteUrl2);
-                        }
-                    });
+                    resourcesTxt2.setMovementMethod(LinkMovementMethod.getInstance());
+                    resourcesTxt2.setText(link2);
                 }
 
                 if (!segment.groupName3.equals("") && !segment.websiteUrl3.equals("")) {
@@ -327,14 +305,8 @@ public class SegmentDetailsFragment extends Fragment {
                         link3 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl3 + "\">" + segment.groupName3 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt3.setText(segment.groupName3);
-
-                    resourcesTxt3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openWebView(segment.websiteUrl3);
-                        }
-                    });
+                    resourcesTxt3.setMovementMethod(LinkMovementMethod.getInstance());
+                    resourcesTxt3.setText(link3);
                 }
 
                 if (!segment.groupName4.equals("") && !segment.websiteUrl4.equals("")) {
@@ -345,14 +317,8 @@ public class SegmentDetailsFragment extends Fragment {
                         link4 = (Html.fromHtml("<a style=\"text-decoration: none\" href=\"" + segment.websiteUrl4 + "\">" + segment.groupName4 + "</a>")); // or for older api
                     }
 
-                    resourcesTxt4.setText(segment.groupName4);
-
-                    resourcesTxt4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openWebView(segment.websiteUrl4);
-                        }
-                    });
+                    resourcesTxt4.setMovementMethod(LinkMovementMethod.getInstance());
+                    resourcesTxt4.setText(link4);
                 }
 
             } else {

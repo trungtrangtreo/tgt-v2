@@ -725,7 +725,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
     private void addAllLines(GoogleMap googleMap, List<PointState> points) {
 
         Log.i(TrackService.TAG, "addAllLines    iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii size =  " + points.size());
-        int colorLine = Color.BLACK;
+        int colorLine = Color.YELLOW;
 
         /*LatLng LOWER_MANHATTAN = new LatLng(40.722543, -73.998585);
         LatLng TIMES_SQUARE = new LatLng(40.7577, -73.9857);
@@ -735,7 +735,7 @@ public class ActivityDetailsFragment extends Fragment implements OnNavigationIte
             //     int j = (i+step < points.size()-1) ? i+step : points.size()-1;
             switch (points.get(i).getState()) {
                 case "Run":
-                    colorLine = Color.BLACK;
+                    colorLine = Color.YELLOW;
                     break;
                 case "Pause":
                     colorLine = Color.GRAY;

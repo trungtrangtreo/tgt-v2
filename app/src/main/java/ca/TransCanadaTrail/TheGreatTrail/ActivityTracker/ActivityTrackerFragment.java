@@ -1069,7 +1069,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             }
 
         }
-        return distanceTxt;
+        return String.format("%.0f",distanceTxt);
     }
 
     private float ConvertMToKmFloat(long distance) {

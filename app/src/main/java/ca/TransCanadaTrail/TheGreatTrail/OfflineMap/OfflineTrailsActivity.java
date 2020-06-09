@@ -12,39 +12,32 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.mapboxsdk.MapboxAccountManager;
 import com.mapbox.mapboxsdk.location.LocationServices;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
 import com.mapbox.mapboxsdk.offline.OfflineRegion;
-import com.mapbox.mapboxsdk.offline.OfflineRegionStatus;
-
 import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.database.ActivityDBHelper;
 import ca.TransCanadaTrail.TheGreatTrail.item.OfflineItem;
 import ca.TransCanadaTrail.TheGreatTrail.item.OfflineItemAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Utility;
-
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import ca.TransCanadaTrail.TheGreatTrail.AppController;
@@ -446,7 +439,4 @@ public class OfflineTrailsActivity extends AppCompatActivity {
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
-
-
-
 }

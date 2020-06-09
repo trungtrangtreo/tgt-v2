@@ -9,11 +9,6 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.SearchView;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -30,6 +25,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -640,8 +641,8 @@ public class SearchListFragment extends Fragment {
     }
 
     private void enableSearchView(SearchView view, boolean enabled) {
-        ImageView clearButton = (ImageView) view.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-        SearchView.SearchAutoComplete searchEditText = (SearchView.SearchAutoComplete) view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        ImageView clearButton = (ImageView) view.findViewById(R.id.search_close_btn);
+        SearchView.SearchAutoComplete searchEditText = (SearchView.SearchAutoComplete) view.findViewById(R.id.search_src_text);
 
         clearButton.setEnabled(false);
         searchEditText.setEnabled(false);

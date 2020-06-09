@@ -13,9 +13,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -331,6 +332,4 @@ public class TrackService extends Service implements
     public void onConnectionSuspended(int i) {
         Log.e(TAG, "GoogleApiClient connection has been suspend");
     }
-
-
 }

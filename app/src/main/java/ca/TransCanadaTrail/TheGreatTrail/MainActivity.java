@@ -1,5 +1,6 @@
 package ca.TransCanadaTrail.TheGreatTrail;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,17 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -30,7 +20,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-
+import androidx.annotation.IdRes;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,12 +47,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityLogFragment;
@@ -70,7 +68,6 @@ import ca.TransCanadaTrail.TheGreatTrail.OfflineMap.OfflineTrailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.HomeViewPagerAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.controllers.AchievementsManager;
-import ca.TransCanadaTrail.TheGreatTrail.fragments.AchievementsFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.ArchiveFragment;
 import ca.TransCanadaTrail.TheGreatTrail.fragments.BaseTrailDrawingFragment;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
@@ -79,7 +76,6 @@ import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
 import ca.TransCanadaTrail.TheGreatTrail.utils.DownloadedAppBadgeBroadcastReceiver;
 import ca.TransCanadaTrail.TheGreatTrail.utils.NotificationsManager;
 import ca.TransCanadaTrail.TheGreatTrail.utils.SharedPrefUtils;
-
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragStack;
 import static ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment.trackerfragTagStack;
 import static ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment.mapfragStack;
@@ -493,6 +489,7 @@ public class MainActivity extends AppCompatActivity implements ArchiveFragment.G
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -5,8 +5,9 @@ package ca.TransCanadaTrail.TheGreatTrail;
  */
 
 import android.app.Application;
-import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+
+import androidx.multidex.MultiDexApplication;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

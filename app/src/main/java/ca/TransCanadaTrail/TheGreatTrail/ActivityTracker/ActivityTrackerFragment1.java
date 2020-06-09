@@ -20,17 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.Layout;
 import android.text.SpannableString;
@@ -50,7 +39,16 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -71,17 +69,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.TransCanadaTrail.TheGreatTrail.AppController;
@@ -95,7 +91,6 @@ import ca.TransCanadaTrail.TheGreatTrail.fragments.HomeTabMapFragment;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ElevationClass;
 import ca.TransCanadaTrail.TheGreatTrail.utils.PointState;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Utility;
-
 import static android.content.Context.LOCATION_SERVICE;
 import static ca.TransCanadaTrail.TheGreatTrail.MainActivity.REQUEST_ID_ACCESS_COURSE_FINE_LOCATION;
 
@@ -112,14 +107,21 @@ public class ActivityTrackerFragment1 extends HomeTabMapFragment implements Goog
 
     public SearchView searchView;
     public int isSearchOpened = 0;
-    @BindView(R.id.trackerSearchLayout) public FrameLayout trackerSearchLayout;
+    @BindView(R.id.trackerSearchLayout)
+    public FrameLayout trackerSearchLayout;
 
-    @BindView(R.id.location_toggle_fab) FloatingActionButton floatingActionButton;
-    @BindView(R.id.txtDistance) TextView txtDistance;
-    @BindView(R.id.txtElevation) TextView txtElevation;
-    @BindView(R.id.startBtn) Button startBtn;
-    @BindView(R.id.activityBtn) Button activityBtn;
-    @BindView(R.id.chronometer) Chronometer chrono;
+    @BindView(R.id.location_toggle_fab)
+    FloatingActionButton floatingActionButton;
+    @BindView(R.id.txtDistance)
+    TextView txtDistance;
+    @BindView(R.id.txtElevation)
+    TextView txtElevation;
+    @BindView(R.id.startBtn)
+    Button startBtn;
+    @BindView(R.id.activityBtn)
+    Button activityBtn;
+    @BindView(R.id.chronometer)
+    Chronometer chrono;
     MenuItem searchItem;
     ReceiverManager receiverManager;
     double diffElevation = 0;
@@ -560,7 +562,7 @@ public class ActivityTrackerFragment1 extends HomeTabMapFragment implements Goog
 
         ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
-        TextView searchTextView = (TextView) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        TextView searchTextView = (TextView) searchView.findViewById(R.id.search_src_text);
         try {
             Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawableRes.setAccessible(true);

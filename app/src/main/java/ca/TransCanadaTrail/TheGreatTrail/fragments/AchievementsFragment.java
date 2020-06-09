@@ -1,29 +1,22 @@
 package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.AchievementsAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.realmdoas.AchievementsDao;
 import ca.TransCanadaTrail.TheGreatTrail.utils.ApplicationData;
-
-/**
- * Created by Islam Salah on 7/12/17.
- */
 
 public class AchievementsFragment extends Fragment implements GetStartedDialogFragment.GetStartedDialogIF {
 

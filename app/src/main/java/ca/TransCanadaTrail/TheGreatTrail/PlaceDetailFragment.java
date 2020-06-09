@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -22,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
@@ -33,10 +34,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
-
-/**
- * Created by hardikfumakiya on 2017-01-21.
- */
 
 public class PlaceDetailFragment extends Fragment {
 
@@ -289,8 +286,6 @@ public class PlaceDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 
-
         }
     }
-
 }

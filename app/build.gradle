@@ -1,19 +1,9 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url 'https://maven.fabric.io/public' }
-        google()
-    }
 
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
-
-//noinspection GradleCompatible
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     signingConfigs {
@@ -32,15 +22,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion '28.0.0'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "ca.TransCanadaTrail.TheGreatTrail"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 11
-        versionName "1.0.11"
+        targetSdkVersion 29
+        versionCode 12
+        versionName "1.0.12"
         // Enabling multidex support.
         multiDexEnabled true
     }
@@ -99,11 +89,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.volley:volley:1.1.0'
 
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-places:16.1.0'
@@ -131,8 +116,8 @@ dependencies {
     implementation 'com.bluelinelabs:logansquare:1.3.6'
     annotationProcessor 'com.bluelinelabs:logansquare-compiler:1.3.6'
 
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
@@ -143,6 +128,7 @@ dependencies {
 
     /* SDP - a scalable size unit */
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
-}
 
-apply plugin: 'com.google.gms.google-services'
+    /* Add the Firebase Crashlytics SDK.*/
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
+}

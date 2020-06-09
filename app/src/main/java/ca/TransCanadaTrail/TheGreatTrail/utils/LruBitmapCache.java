@@ -6,8 +6,9 @@ package ca.TransCanadaTrail.TheGreatTrail.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 import android.util.DisplayMetrics;
+
+import androidx.collection.LruCache;
 
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 

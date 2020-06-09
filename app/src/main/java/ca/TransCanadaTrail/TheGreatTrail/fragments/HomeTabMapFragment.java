@@ -1,23 +1,17 @@
 package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
+
+import androidx.appcompat.widget.SearchView;
 
 import com.google.android.gms.maps.model.CameraPosition;
 
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.SearchListFragment;
-
-/**
- * Created by Islam Salah on 10/30/17.
- * <p>
- * https://github.com/IslamSalah
- * islamsalah007@gmail.com
- */
 
 public abstract class HomeTabMapFragment extends LazyLoadFragment implements SearchView.OnQueryTextListener {
 

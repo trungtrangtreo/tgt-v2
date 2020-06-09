@@ -1,20 +1,16 @@
 package ca.TransCanadaTrail.TheGreatTrail.controllers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
+import androidx.annotation.NonNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
 import ca.TransCanadaTrail.TheGreatTrail.models.AchievementFilter;
 

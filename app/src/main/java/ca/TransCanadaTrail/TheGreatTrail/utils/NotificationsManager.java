@@ -5,17 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.activities.AchievementDetailsActivity;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
-
-/**
- * Created by tarekAshraf on 7/27/17.
- */
 
 public class NotificationsManager {
 

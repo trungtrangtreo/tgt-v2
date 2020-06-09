@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,11 +43,11 @@ public class SettingsActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_settings);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_activity_tb);
+        Toolbar toolbar = findViewById(R.id.main_activity_tb);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        ListView settingsListView = (ListView) findViewById(R.id.settingsListView);
+        ListView settingsListView = findViewById(R.id.settingsListView);
         settingsListView.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -117,10 +117,6 @@ public class SettingsActivity extends AppCompatActivity implements
             editor.putBoolean("IncludePhoto", includePhoto); // value to store
             editor.commit();
         }
-
-
-       // Toast.makeText(SettingsActivity.this, value,Toast.LENGTH_SHORT).show();
-
     }
 }
 

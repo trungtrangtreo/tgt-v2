@@ -1,9 +1,8 @@
 package ca.TransCanadaTrail.TheGreatTrail.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.ActivityTracker.ActivityTrackerFragment;
 import ca.TransCanadaTrail.TheGreatTrail.MapView.MapFragment;
 import ca.TransCanadaTrail.TheGreatTrail.MeasureTool.MeasureFragment;

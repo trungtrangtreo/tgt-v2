@@ -2,13 +2,10 @@ package ca.TransCanadaTrail.TheGreatTrail;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
-/**
- * Created by hardikfumakiya on 2016-12-13.
- */
 public class NewSearchAdapter extends SimpleCursorAdapter {
 
 

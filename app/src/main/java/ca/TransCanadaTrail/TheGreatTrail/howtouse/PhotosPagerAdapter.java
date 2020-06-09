@@ -3,10 +3,6 @@ package ca.TransCanadaTrail.TheGreatTrail.howtouse;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -22,11 +22,9 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import ca.TransCanadaTrail.TheGreatTrail.CustomProgressbar;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
-import ca.TransCanadaTrail.TheGreatTrail.utils.SharedPrefUtils;
 
 public class PhotosPagerAdapter extends PagerAdapter {
 
@@ -92,8 +90,9 @@ public class PhotosPagerAdapter extends PagerAdapter {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
                         context.startActivity(new Intent(context, MainActivity.class));
-                        SharedPrefUtils.saveIsClickGetStarted(context, true);
-                        ((HowToUseActivity) context).finish();
+//                        SharedPrefUtils.saveIsClickGetStarted(context, true);
+//                        ((HowToUseActivity) context).finish();
+                        throw new RuntimeException("Test Crash");
                     }
 
                     @Override

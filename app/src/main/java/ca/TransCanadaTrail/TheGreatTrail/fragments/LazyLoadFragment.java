@@ -1,9 +1,5 @@
 package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
-/**
- * Created by Islam Salah on 8/8/17.
- */
-
 public abstract class LazyLoadFragment extends BaseTrailDrawingFragment {
     protected boolean isVisible;
     protected boolean isViewCreated;

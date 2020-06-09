@@ -7,13 +7,12 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.mapbox.mapboxsdk.MapboxAccountManager;
@@ -40,12 +39,9 @@ import com.mapbox.services.commons.geojson.Feature;
 import com.mapbox.services.commons.geojson.FeatureCollection;
 import com.mapbox.services.commons.geojson.LineString;
 import com.mapbox.services.commons.models.Position;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-
 import java.util.ArrayList;
-
 import ca.TransCanadaTrail.TheGreatTrail.AppController;
 import ca.TransCanadaTrail.TheGreatTrail.Constants;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;

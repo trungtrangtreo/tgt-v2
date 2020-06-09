@@ -1,9 +1,9 @@
 package ca.TransCanadaTrail.TheGreatTrail.Volley;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
+
+import androidx.collection.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -11,7 +11,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 import ca.TransCanadaTrail.TheGreatTrail.utils.LruBitmapCache;
-
 
 /**
  * Created by Dev1 on 12/16/2016.

@@ -2,9 +2,9 @@ package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.support.annotation.CallSuper;
-import android.support.v4.app.Fragment;
-import android.util.Log;
+
+import androidx.annotation.CallSuper;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,10 +33,6 @@ import ca.TransCanadaTrail.TheGreatTrail.MapView.TrailSegmentLight;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.utils.Logger;
 import ca.TransCanadaTrail.TheGreatTrail.utils.TrailUtility;
-
-/**
- * Created by Islam Salah on 8/13/17.
- */
 
 public abstract class BaseTrailDrawingFragment extends Fragment {
 

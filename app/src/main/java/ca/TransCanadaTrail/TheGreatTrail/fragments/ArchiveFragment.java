@@ -1,18 +1,15 @@
 package ca.TransCanadaTrail.TheGreatTrail.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-
-import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
 import ca.TransCanadaTrail.TheGreatTrail.adapters.ArchiveAdapter;
 import ca.TransCanadaTrail.TheGreatTrail.models.Achievement;
@@ -57,8 +54,8 @@ public class ArchiveFragment extends Fragment implements GetStartedDialogFragmen
     private void initView(View view) {
         recycleView = view.findViewById(R.id.recycleView);
 
-        archiveAdapter =new ArchiveAdapter(getContext());
-        recycleView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        archiveAdapter = new ArchiveAdapter(getContext());
+        recycleView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recycleView.setAdapter(archiveAdapter);
     }
 

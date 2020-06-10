@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -179,7 +180,7 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//      setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
         // [START shared_tracker]
         // Obtain the shared Tracker instance.

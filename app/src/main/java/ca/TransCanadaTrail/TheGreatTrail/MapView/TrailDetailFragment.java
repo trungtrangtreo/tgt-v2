@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
@@ -53,6 +54,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
 import ca.TransCanadaTrail.TheGreatTrail.Constants;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
@@ -243,8 +246,6 @@ public class TrailDetailFragment extends Fragment implements NavigationView.OnNa
 
                     zoomOut();
                 }
-
-
             }
         });
 
@@ -366,6 +367,15 @@ public class TrailDetailFragment extends Fragment implements NavigationView.OnNa
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    boolean success = googleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    getContext(), R.raw.style_json));
+
+                } catch (Resources.NotFoundException e) {
+                }
                 onMyMapReady(googleMap);
                 zoomIn();
                 retriveTrail();
@@ -502,76 +512,65 @@ public class TrailDetailFragment extends Fragment implements NavigationView.OnNa
 
         if(myMap != null)
         {
-
             //This is the current user-viewable region of the map
             LatLngBounds bounds = myMap.getProjection().getVisibleRegion().latLngBounds;
 
             //Loop through all the items that are available to be placed on the map
             for(int i=0; i<MainActivity.listSegments.size(); i++)
             {
+                if(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId)!=null){
+                    int lenghtListPoints = MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).size();
 
+                    if((lenghtListPoints < 8 && (bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(0))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints-1)))) ||
+                            ( (lenghtListPoints >= 8) && (bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(0))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints/6)) || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(2*lenghtListPoints/6)) ||
+                                    bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(3*lenghtListPoints/6))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(4*lenghtListPoints/6))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(5*lenghtListPoints/6)) ||
+                                    bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints-1)))  )     ){
 
-                int lenghtListPoints = MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).size();
+                        //If the trail isn't already being displayed
+                        if(!listVisibleSegments.containsKey(MainActivity.listSegments.get(i).objectId))
+                        {
+                            int color = Constants.land;  // Land
+                            int statusCode = MainActivity.listSegments.get(i).statusCode;
+                            int categoryCode = MainActivity.listSegments.get(i).categoryCode;
+                            if(statusCode == 1) {
+                                if(categoryCode == 2) {
+                                    color = Constants.water ; // water
+                                }
+                                else {
+                                    color = Constants.land; // land
+                                }
+                            }
+                            else if (statusCode == 2) {
+                                color = Constants.gap;   // gap
+                            }
 
-                if((lenghtListPoints < 8 && (bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(0))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints-1)))) ||
-                        ( (lenghtListPoints >= 8) && (bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(0))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints/6)) || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(2*lenghtListPoints/6)) ||
-                                bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(3*lenghtListPoints/6))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(4*lenghtListPoints/6))  || bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(5*lenghtListPoints/6)) ||
-                                bounds.contains(MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId).get(lenghtListPoints-1)))  )     ){
-
-
-                    //If the trail isn't already being displayed
-                    if(!listVisibleSegments.containsKey(MainActivity.listSegments.get(i).objectId))
-                    {
-
-                        int color = Constants.land;  // Land
-                        int statusCode = MainActivity.listSegments.get(i).statusCode;
-                        int categoryCode = MainActivity.listSegments.get(i).categoryCode;
-
-                        if(statusCode == 1) {
-                            if(categoryCode == 2) {
+                            if(categoryCode == 5) {
                                 color = Constants.water ; // water
                             }
+
+                            //Add Polyline to the Map and keep track of it with the HashMap
+                            if(currentZoom >= 6) {
+                                Polyline polyline = drawPath3(myMap,MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId), color, categoryCode ) ;
+                                listVisibleSegments.put(MainActivity.listSegments.get(i).objectId, polyline);
+                            }
                             else {
-                                color = Constants.land; // land
+                                Polyline polyline = drawPath33(myMap,MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId), color, categoryCode ) ;
+                                listVisibleSegments.put(MainActivity.listSegments.get(i).objectId, polyline);
                             }
                         }
-                        else if (statusCode == 2) {
-                            color = Constants.gap;   // gap
-                        }
-
-                        if(categoryCode == 5) {
-                            color = Constants.water ; // water
-                        }
-
-                        //Add Polyline to the Map and keep track of it with the HashMap
-                        if(currentZoom >= 6) {
-                            Polyline polyline = drawPath3(myMap,MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId), color, categoryCode ) ;
-                            listVisibleSegments.put(MainActivity.listSegments.get(i).objectId, polyline);
-
-
-                        }
-                        else {
-                            Polyline polyline = drawPath33(myMap,MainActivity.listPoints.get(MainActivity.listSegments.get(i).objectId), color, categoryCode ) ;
-                            listVisibleSegments.put(MainActivity.listSegments.get(i).objectId, polyline);
-
-
-                        }
-
                     }
-                }
 
-                //If the marker is off screen
-                else
-                {
-                    //If the course was previously on screen
-                    if(listVisibleSegments.containsKey(MainActivity.listSegments.get(i).objectId))
+                    //If the marker is off screen
+                    else
                     {
-                        listVisibleSegments.get(MainActivity.listSegments.get(i).objectId).remove();
-                        listVisibleSegments.remove(MainActivity.listSegments.get(i).objectId);
+                        //If the course was previously on screen
+                        if(listVisibleSegments.containsKey(MainActivity.listSegments.get(i).objectId))
+                        {
+                            listVisibleSegments.get(MainActivity.listSegments.get(i).objectId).remove();
+                            listVisibleSegments.remove(MainActivity.listSegments.get(i).objectId);
+                        }
                     }
                 }
-
-
             }
         }
         //addSelectedPolylines();
@@ -752,7 +751,7 @@ public class TrailDetailFragment extends Fragment implements NavigationView.OnNa
                         .position(MainActivity.trailWarnings.get(i).getGeometry())
                         .title(MainActivity.trailWarnings.get(i).getLocation())
                         .snippet(MainActivity.trailWarnings.get(i).getMessage())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.warning_marker)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo_new)));
             }
         }
 

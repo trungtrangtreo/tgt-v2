@@ -192,6 +192,7 @@ public class SearchListFragment extends Fragment {
 
                         if (itemType == SearchAdapter.ListItemType.CONTEXT_PLUGIN_VIEW) {
                             activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                            activity.enableViews(true);
 
                             switch (parentSection) {
 

@@ -25,7 +25,7 @@
                 map:cameraTargetLng="-106.3468"
                 map:zoom="3" />
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/location_toggle_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

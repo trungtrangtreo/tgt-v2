@@ -38,7 +38,6 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -193,7 +192,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
         // [START shared_tracker]
         // Obtain the shared Tracker instance.
@@ -404,8 +403,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
 
                 startBtn.setText(R.string.menu);
                 displayMenu = true;
-//                    colorLine = Color.BLACK;
-
+//              colorLine = Color.BLACK;
 
                 ActivityDBHelper db = new ActivityDBHelper(activity);
                 db.writeEmptyActivity();
@@ -1070,7 +1068,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             }
 
         }
-        return String.format("%.0f",distanceTxt);
+        return String.format("%.0f", distanceTxt);
     }
 
     private float ConvertMToKmFloat(long distance) {
@@ -1147,6 +1145,9 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         Log.i("LocationService", " Reponse api ........................................................................ path = " + path.toString());
 
         String urlAPI = "https://maps.googleapis.com/maps/api/elevation/json?path=" + path + "&samples=" + samples + "&key=" + "AIzaSyDZL37pIbCDiGjHdPQv2pWNQKOIunX8WWA";  // "AIzaSyDZL37pIbCDiGjHdPQv2pWNQKOIunX8WWA"
+
+        Log.e("trung123", urlAPI);
+
         RequestQueue queue = Volley.newRequestQueue(activity);  // this = context
 
         StringRequest postRequest = new StringRequest(Request.Method.GET, urlAPI,

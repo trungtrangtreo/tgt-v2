@@ -117,7 +117,7 @@ public class MapFragment extends HomeTabMapFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         // [START shared_tracker]
         // Obtain the shared Tracker instance.
         AppController application = (AppController) getActivity().getApplication();

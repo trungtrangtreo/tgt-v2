@@ -25,6 +25,7 @@ import java.util.List;
 import ca.TransCanadaTrail.TheGreatTrail.CustomProgressbar;
 import ca.TransCanadaTrail.TheGreatTrail.MainActivity;
 import ca.TransCanadaTrail.TheGreatTrail.R;
+import ca.TransCanadaTrail.TheGreatTrail.utils.SharedPrefUtils;
 
 public class PhotosPagerAdapter extends PagerAdapter {
 
@@ -90,9 +91,8 @@ public class PhotosPagerAdapter extends PagerAdapter {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
                         context.startActivity(new Intent(context, MainActivity.class));
-//                        SharedPrefUtils.saveIsClickGetStarted(context, true);
-//                        ((HowToUseActivity) context).finish();
-                        throw new RuntimeException("Test Crash");
+                        SharedPrefUtils.saveIsClickGetStarted(context, true);
+                        ((HowToUseActivity) context).finish();
                     }
 
                     @Override

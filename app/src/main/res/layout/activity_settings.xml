@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +9,7 @@
     android:background="#EDEDED"
     tools:context="ca.TransCanadaTrail.TheGreatTrail.MenuTool.SettingsActivity">
 
-    <android.support.v7.widget.Toolbar android:id="@+id/main_activity_tb"
+    <androidx.appcompat.widget.Toolbar android:id="@+id/main_activity_tb"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blueGreen"
@@ -35,7 +35,7 @@
 
 
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ListView
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
 
 
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 

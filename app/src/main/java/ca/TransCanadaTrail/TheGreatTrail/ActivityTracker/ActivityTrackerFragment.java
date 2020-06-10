@@ -1,6 +1,7 @@
 package ca.TransCanadaTrail.TheGreatTrail.ActivityTracker;
 
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.BroadcastReceiver;
@@ -1046,6 +1047,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         return distance;
     }
 
+    @SuppressLint("DefaultLocale")
     private String ConvertMToKm(long distance) {
         String distanceTxt = "0 km";
         long kilometer = 0;
@@ -1068,7 +1070,8 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
             }
 
         }
-        return String.format("%.0f", distanceTxt);
+
+        return distanceTxt;
     }
 
     private float ConvertMToKmFloat(long distance) {

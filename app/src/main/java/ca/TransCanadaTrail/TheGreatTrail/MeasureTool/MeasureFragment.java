@@ -86,6 +86,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import butterknife.BindDimen;
@@ -336,6 +337,7 @@ public class MeasureFragment extends HomeTabMapFragment implements OnChartGestur
         ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
         TextView searchTextView = (TextView) searchView.findViewById(R.id.search_src_text);
+        searchTextView.setTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "fonts/gotham_book.otf"));
         try {
             Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawableRes.setAccessible(true);

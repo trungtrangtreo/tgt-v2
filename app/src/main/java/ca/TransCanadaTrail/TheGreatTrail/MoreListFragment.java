@@ -49,10 +49,10 @@ public class MoreListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity=(MainActivity)context;
+        activity = (MainActivity) context;
     }
 
-//    @Override
+    //    @Override
 //    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 //        super.onCreateOptionsMenu(menu, inflater);
 //        menu.clear();
@@ -68,10 +68,10 @@ public class MoreListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.more_list,container,false);
-        more_list=(ListView)v.findViewById(R.id.more_list);
+        View v = inflater.inflate(R.layout.more_list, container, false);
+        more_list = (ListView) v.findViewById(R.id.more_list);
 
-        activity.getSupportActionBar().setTitle(Html.fromHtml("<small>"+getArguments().getString("title")+"</small>"));
+        activity.getSupportActionBar().setTitle(Html.fromHtml("<small>" + getArguments().getString("title") + "</small>"));
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
@@ -104,47 +104,43 @@ public class MoreListFragment extends Fragment {
 //        });
         ArrayAdapter adapter = null;
 
-        itemType=getArguments().getString("itemType");
-        try{
+        itemType = getArguments().getString("itemType");
+        try {
             switch (itemType) {
                 case "RecentSearch":
                     SharedPreferences preferences = getContext().getSharedPreferences("SearchPreferences", Context.MODE_PRIVATE);
                     Set<String> searchText = preferences.getStringSet("search", new HashSet<String>());
                     searchList = new ArrayList<>(searchText);
-                    Collections.sort(searchList, new Comparator<String>()
-                    {
+                    Collections.sort(searchList, new Comparator<String>() {
                         @Override
-                        public int compare(String text1, String text2)
-                        {
+                        public int compare(String text1, String text2) {
                             return text1.compareToIgnoreCase(text2);
                         }
                     });
                     //recent_search=searchText.toArray(new String[searchText.size()]);
-                    adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1,searchList);
+                    adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, searchList);
                     break;
 //                case "TrailService":
 //                    trail_service=getResources().getStringArray( R.array.trailServiceArray);
 //                    adapter = ArrayAdapter.createFromResource(getContext(), R.array.trailServiceArray, android.R.layout.simple_list_item_1);
 //                    break;
                 case "GooglePlacesService":
-                    google_service=getResources().getStringArray( R.array.googlePlacesServiceArray);
+                    google_service = getResources().getStringArray(R.array.googlePlacesServiceArray);
                     List<String> gServicesList = Arrays.asList(google_service);
-                    Collections.sort(gServicesList, new Comparator<String>()
-                    {
+                    Collections.sort(gServicesList, new Comparator<String>() {
                         @Override
-                        public int compare(String text1, String text2)
-                        {
+                        public int compare(String text1, String text2) {
                             return text1.compareToIgnoreCase(text2);
                         }
                     });
-                    adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1,gServicesList);
+                    adapter = new ArrayAdapter<>(activity, R.layout.item_search_more, gServicesList);
 
                     ImageView empty = new ImageView(getContext());
                     AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT);
                     empty.setLayoutParams(lp);
-                    empty.setPadding(20,30,20,30);
+                    empty.setPadding(20, 30, 20, 30);
                     empty.setImageResource(R.drawable.powered_by_google_light);
 
                     more_list.addFooterView(empty);
@@ -153,11 +149,9 @@ public class MoreListFragment extends Fragment {
                     break;
             }
 
-            if(adapter!=null)
+            if (adapter != null)
                 more_list.setAdapter(adapter);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -165,24 +159,23 @@ public class MoreListFragment extends Fragment {
         more_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (itemType)
-                {
+                switch (itemType) {
                     case "RecentSearch":
                         popLastSearchFragmentFromStack();
 
-                        String item=searchList.get(position);
-                        SearchListFragment searchFrag= new SearchListFragment();
-                        searchFrag.refreshData(activity,item);
-                        replaceFragment(SearchListFragment.resourceID,searchFrag);
+                        String item = searchList.get(position);
+                        SearchListFragment searchFrag = new SearchListFragment();
+                        searchFrag.refreshData(activity, item);
+                        replaceFragment(SearchListFragment.resourceID, searchFrag);
 
                         break;
                     case "GooglePlacesService":
                         pushMoreFragmentToStack();
 
-                        GooglePlaceCategoryFragment gfragment= GooglePlaceCategoryFragment.getInstance();
-                        gfragment.categoryType=google_service[position];
+                        GooglePlaceCategoryFragment gfragment = GooglePlaceCategoryFragment.getInstance();
+                        gfragment.categoryType = google_service[position];
 
-                        replaceFragment(SearchListFragment.resourceID,gfragment);
+                        replaceFragment(SearchListFragment.resourceID, gfragment);
                         break;
                     default:
                         break;
@@ -192,6 +185,7 @@ public class MoreListFragment extends Fragment {
 
         return v;
     }
+
     private void pushMoreFragmentToStack() {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment fmore = null;
@@ -199,17 +193,17 @@ public class MoreListFragment extends Fragment {
 
         switch (MainActivity.currentTab) {
             case "MapFragment":
-                fragmentTag="Map"+fragmentTag;
+                fragmentTag = "Map" + fragmentTag;
                 fmore = fragmentManager.findFragmentById(R.id.searchLayout);
 
                 break;
             case "MeasureFragment":
-                fragmentTag="Measure"+fragmentTag;
+                fragmentTag = "Measure" + fragmentTag;
                 fmore = fragmentManager.findFragmentById(R.id.measureSearchLayout);
 
                 break;
             case "ActivityTrackerFragment":
-                fragmentTag="Tracker"+fragmentTag;
+                fragmentTag = "Tracker" + fragmentTag;
                 fmore = fragmentManager.findFragmentById(R.id.trackerSearchLayout);
                 break;
         }
@@ -236,19 +230,19 @@ public class MoreListFragment extends Fragment {
         switch (MainActivity.currentTab) {
             case "MapFragment":
                 //fsearch = fragmentManager.findFragmentById(R.id.searchLayout);
-                searchtag="Map" + searchtag;
+                searchtag = "Map" + searchtag;
                 break;
             case "MeasureFragment":
                 //fsearch = fragmentManager.findFragmentById(R.id.measureSearchLayout);
-                searchtag="Measure" + searchtag;
+                searchtag = "Measure" + searchtag;
                 break;
             case "ActivityTrackerFragment":
                 //fsearch = fragmentManager.findFragmentById(R.id.trackerSearchLayout);
-                searchtag="Tracker" + searchtag;
+                searchtag = "Tracker" + searchtag;
                 break;
         }
 
-        fsearch= SearchListFragment.fragStack.get(searchtag);
+        fsearch = SearchListFragment.fragStack.get(searchtag);
 
         if (fsearch instanceof SearchListFragment) {
             SearchListFragment.fragStack.remove(searchtag);
@@ -261,13 +255,11 @@ public class MoreListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(MainActivity.currentTab.equals("MapFragment") && mapfragStack.containsKey("MapSearchFragment")){
+        if (MainActivity.currentTab.equals("MapFragment") && mapfragStack.containsKey("MapSearchFragment")) {
             menu.clear();
-        }
-        else if(MainActivity.currentTab.equals("MeasureFragment") && measurefragStack.containsKey("MeasureSearchFragment")){
+        } else if (MainActivity.currentTab.equals("MeasureFragment") && measurefragStack.containsKey("MeasureSearchFragment")) {
             menu.clear();
-        }
-        else if(MainActivity.currentTab.equals("ActivityTrackerFragment") && trackerfragStack.containsKey("TrackerSearchFragment")){
+        } else if (MainActivity.currentTab.equals("ActivityTrackerFragment") && trackerfragStack.containsKey("TrackerSearchFragment")) {
             menu.clear();
         }
 

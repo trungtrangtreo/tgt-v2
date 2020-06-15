@@ -1,6 +1,8 @@
 package ca.TransCanadaTrail.TheGreatTrail;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,28 +13,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import ca.TransCanadaTrail.TheGreatTrail.R;
-
-/**
- * Created by hardikfumakiya on 2016-12-24.
- */
-
-public class SearchAdapter extends BaseAdapter{
+public class SearchAdapter extends BaseAdapter {
 
     Context mContext;
     ArrayList<ListViewItem> listItems;
-    ArrayList <ListViewItem> searchItems;
+    ArrayList<ListViewItem> searchItems;
 
-    ArrayList <ListViewItem> sectionItems;
+    ArrayList<ListViewItem> sectionItems;
 
     //LayoutInflater inflater;
-    public SearchAdapter(Context mContext, ArrayList <ListViewItem> listItems,ArrayList <ListViewItem> searchItem,ArrayList <ListViewItem> sectionItem) {
+    public SearchAdapter(Context mContext, ArrayList<ListViewItem> listItems, ArrayList<ListViewItem> searchItem, ArrayList<ListViewItem> sectionItem) {
         this.mContext = mContext;
         this.listItems = listItems;
         //this.inflater = activity.getLayoutInflater();
 
-        this.searchItems=searchItem;
-        this.sectionItems=sectionItem;
+        this.searchItems = searchItem;
+        this.sectionItems = sectionItem;
     }
 
     @Override
@@ -56,44 +52,36 @@ public class SearchAdapter extends BaseAdapter{
 
         charText = charText.toLowerCase(Locale.getDefault()).trim();
 
-        if(!charText.equals(""))
-        {
+        if (!charText.equals("")) {
             listItems.clear();
-            int y=0;
-            for(int i=0;i<sectionItems.size();i++)
-            {
-                ListViewItem sectionItem=sectionItems.get(i);
+            int y = 0;
+            for (int i = 0; i < sectionItems.size(); i++) {
+                ListViewItem sectionItem = sectionItems.get(i);
                 listItems.add(sectionItem);
-                int x=sectionItem.getNo_of_item();
+                int x = sectionItem.getNo_of_item();
 
-                for(int j=y;j<(x+y);j++)
-                {
-                    if(searchItems.size()>j)
-                    {
-                        ListViewItem item=searchItems.get(j);
-                        Log.d("filter data:"+charText,"text:"+item.getObject());
-                        if(item.getObject()!=null && item.getObject().toLowerCase().contains(charText))
+                for (int j = y; j < (x + y); j++) {
+                    if (searchItems.size() > j) {
+                        ListViewItem item = searchItems.get(j);
+                        Log.d("filter data:" + charText, "text:" + item.getObject());
+                        if (item.getObject() != null && item.getObject().toLowerCase().contains(charText))
                             listItems.add(item);
                     }
                 }
-                y=x+y;
+                y = x + y;
             }
-        }
-        else
-        {
+        } else {
             listItems.clear();
-            int y=0;
-            for(int i=0;i<sectionItems.size();i++)
-            {
-                ListViewItem sectionItem=sectionItems.get(i);
+            int y = 0;
+            for (int i = 0; i < sectionItems.size(); i++) {
+                ListViewItem sectionItem = sectionItems.get(i);
                 listItems.add(sectionItem);
-                int x=sectionItem.getNo_of_item();
-                for(int j=y;j<searchItems.size();j++)
-                {
+                int x = sectionItem.getNo_of_item();
+                for (int j = y; j < searchItems.size(); j++) {
                     listItems.add(searchItems.get(j));
                 }
 
-                y=x+y;
+                y = x + y;
             }
         }
         notifyDataSetChanged();
@@ -116,47 +104,48 @@ public class SearchAdapter extends BaseAdapter{
 
     //Let's assume the two layouts to inflated are called list_item_layout and header_layout.
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
-    {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         int rowType = getItemViewType(position);
-        ListViewItem item=listItems.get(position);
+        ListViewItem item = listItems.get(position);
         TextView itemNameView = null;
         ViewHolderListItem holder;
-        if(convertView == null){
+        if (convertView == null) {
 
             holder = new ViewHolderListItem();
 
-            if(rowType == ListItemType.CONTEXT_PLUGIN_VIEW){
+            if (rowType == ListItemType.CONTEXT_PLUGIN_VIEW) {
                 // row title
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_item, parent,false);
-                holder.itemNameView = (TextView)convertView.findViewById(R.id.text);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.search_item, parent, false);
+                holder.itemNameView = (TextView) convertView.findViewById(R.id.text);
 
-            }
-            else if(rowType == ListItemType.HEADER_VIEW){
+            } else if (rowType == ListItemType.HEADER_VIEW) {
                 // row item
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.section_item, parent,false);
-                holder.itemNameView = (TextView)convertView.findViewById(R.id.textSeparator);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.section_item, parent, false);
+                holder.itemNameView = (TextView) convertView.findViewById(R.id.textSeparator);
 
             }
 
             //holder.itemNameView=itemNameView;
             convertView.setTag(holder);
 
-        }
-        else{
+        } else {
 
-            holder= (ViewHolderListItem)convertView.getTag();
+            holder = (ViewHolderListItem) convertView.getTag();
 
             //itemNameView = (TextView)holder.itemNameView;
         }
-        //Log.d("list :"+position,item.getObject());
-        if(item.getObject().equals(mContext.getResources().getString(R.string.more)))
-            holder.itemNameView.setTextColor(mContext.getResources().getColor(R.color.more));
-        else
-            if(rowType == ListItemType.HEADER_VIEW)
-            holder.itemNameView.setTextColor(mContext.getResources().getColor(R.color.white));
-        else
-            holder.itemNameView.setTextColor(mContext.getResources().getColor(R.color.black));
+//        //Log.d("list :"+position,item.getObject());
+        if (item.getObject().equals(mContext.getResources().getString(R.string.more))) {
+            SpannableString content = new SpannableString(mContext.getResources().getString(R.string.more));
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            holder.itemNameView.setText(content);
+        }
+
+//        else
+//            if(rowType == ListItemType.HEADER_VIEW)
+//            holder.itemNameView.setTextColor(mContext.getResources().getColor(R.color.white));
+//        else
+//            holder.itemNameView.setTextColor(mContext.getResources().getColor(R.color.black));
 
         holder.itemNameView.setText(item.getObject());
 

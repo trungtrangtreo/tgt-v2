@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/md_black_1000"
-    android:minHeight="32dp"
-    android:gravity="center_vertical" >
+    android:background="#2B2B2B"
+    android:gravity="center_vertical"
+    android:minHeight="32dp">
 
     <TextView
         android:id="@+id/textSeparator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/gotham_book"
         android:gravity="left"
-        android:padding="8dp"
+        android:paddingStart="30dp"
+        android:paddingTop="@dimen/spacing_small"
+        android:paddingBottom="@dimen/spacing_small"
         android:text=""
         android:textAllCaps="false"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFF"
-        android:textStyle="bold"
         android:textSize="14sp"
-        android:visibility="visible" />
+        android:textStyle="bold"
+        android:visibility="visible"
+        tools:text="Trail" />
 
 </LinearLayout>

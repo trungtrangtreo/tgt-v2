@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -77,6 +78,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -563,6 +565,7 @@ public class ActivityTrackerFragment1 extends HomeTabMapFragment implements Goog
         ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
         TextView searchTextView = (TextView) searchView.findViewById(R.id.search_src_text);
+        searchTextView.setTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(),"fonts/gotham_book.otf"));
         try {
             Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawableRes.setAccessible(true);

@@ -53,6 +53,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -224,6 +225,7 @@ public class MapFragment extends HomeTabMapFragment {
         ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
         TextView searchTextView = (TextView) searchView.findViewById(R.id.search_src_text);
+        searchTextView.setTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(),"fonts/gotham_book.otf"));
         try {
             Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawableRes.setAccessible(true);
@@ -337,9 +339,6 @@ public class MapFragment extends HomeTabMapFragment {
                 return;
             }
         }
-
-        myMap.setMyLocationEnabled(true);
-        myMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 

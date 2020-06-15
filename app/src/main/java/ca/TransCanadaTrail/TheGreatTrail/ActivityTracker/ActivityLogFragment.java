@@ -724,7 +724,9 @@ public void onPrepareOptionsMenu(Menu menu) {
 
     private void onMyMapReady(GoogleMap googleMap) {
 
-
+        /*Show button get my location on map*/
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -760,8 +762,6 @@ public void onPrepareOptionsMenu(Menu menu) {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        myMap.setMyLocationEnabled(true);
-        myMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 
 

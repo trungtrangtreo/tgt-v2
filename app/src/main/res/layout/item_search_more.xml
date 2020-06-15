@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvName"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray2"
+    android:fontFamily="@font/gotham_book"
+    android:gravity="center_vertical"
+    android:paddingStart="30dp"
+    android:paddingTop="@dimen/spacing_small"
+    android:paddingBottom="@dimen/spacing_small"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textColor="@color/md_white_1000"
+    android:textSize="13sp"
+    tools:text="Trail test" />

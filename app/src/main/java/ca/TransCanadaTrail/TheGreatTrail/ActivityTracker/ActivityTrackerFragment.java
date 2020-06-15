@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -672,6 +673,7 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
 
         TextView searchTextView = (TextView) searchView.findViewById(R.id.search_src_text);
+        searchTextView.setTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(),"fonts/gotham_book.otf"));
         try {
             Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawableRes.setAccessible(true);
@@ -1054,14 +1056,17 @@ public class ActivityTrackerFragment extends HomeTabMapFragment implements Googl
         if (distance > 1000) {
             kilometer = distance / 1000;
             long reste = distance % 1000;
+
             reste = (long) Math.round(reste / 10.0);
+
+            kilometer = (long) ((float) Math.round(kilometer * 100) / 100);
+
             if (reste > 10) {
                 distanceTxt = kilometer + "." + reste;
             } else {
                 distanceTxt = kilometer + ".0" + reste;
             }
         } else {
-
             distance = (long) Math.round(distance / 10.0);
             if (distance > 10) {
                 distanceTxt = "0." + distance;
